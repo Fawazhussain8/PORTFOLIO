@@ -21,67 +21,199 @@
 <section>
   <div class="section-label"><h2>Detection Engineering</h2></div>
 
-  <!-- DETECTION 1 -->
-  <div class="project-card" style="display:block;">
+  <p class="note">
+    Due to confidentiality, detection rules are generalized representations of real-world implementations.
+  </p>
 
-    <div class="project-title">
-      Privilege Group Change Monitoring
+  <!-- DETECTION 1: Privilege Group Change Monitoring (UPGRADED) -->
+  <div class="project-card">
+    <div class="project-title">Privilege Group Change Monitoring</div>
+    <div class="detection-meta">
+      <span class="badge mitre">T1098 - Account Manipulation</span>
+      <span class="badge log">Windows Security</span>
+      <span class="badge severity">High</span>
     </div>
-
-    <div class="project-desc">
-
-      <p><strong>Platform:</strong> Log360</p>
-
-      <p><strong>Data Source:</strong> Windows Security Logs</p>
-
-      <p><strong>Relevant Events:</strong><br>
-      4728, 4732, 4756 (User added to privileged group)
-      </p>
-
-      <p><strong>Detection Logic:</strong><br>
-      Alert on addition of users to privileged groups (e.g., Administrators, Domain Admins)
-      </p>
-
-      <p><strong>Why it matters:</strong><br>
-      Indicates potential privilege escalation or unauthorized access expansion.
-      </p>
-
-      <p><strong>My Contribution:</strong></p>
-      <ul>
-        <li>Filtered logs to focus only on privilege-related events</li>
-        <li>Configured alert profile for high severity triggers</li>
-        <li>Reduced noise from unrelated security logs</li>
-      </ul>
-
+    <p><strong>Platform:</strong> Log360</p>
+    <div class="code-block">
+      title: Privileged Group Modification<br>
+      logsource: Windows Security<br>
+      detection:<br>
+      &nbsp;&nbsp;EventID: 4728, 4732, 4756<br>
+      condition: selection
     </div>
+    <p><strong>Detection Logic:</strong><br>
+      Alert on addition of users to privileged groups (Administrators, Domain Admins).</p>
+    <p><strong>Why it matters:</strong><br>
+      Indicates privilege escalation or unauthorized access expansion.</p>
+    <p><strong>My Contribution:</strong></p>
+    <ul>
+      <li>Filtered logs to focus on privilege-related events</li>
+      <li>Configured high-severity alert profile</li>
+      <li>Reduced noise from non-critical group changes</li>
+    </ul>
   </div>
 
-  <!-- DETECTION 2 -->
-  <div class="project-card" style="display:block;">
-
-    <div class="project-title">
-      Brute Force Login Detection
+  <!-- DETECTION 2: Brute Force Login Detection (UPGRADED) -->
+  <div class="project-card">
+    <div class="project-title">Brute Force Login Detection</div>
+    <div class="detection-meta">
+      <span class="badge mitre">T1110 - Brute Force</span>
+      <span class="badge log">Windows Security</span>
+      <span class="badge severity">Medium</span>
     </div>
-
-    <div class="project-desc">
-
-      <p><strong>Event ID:</strong> 4625</p>
-
-      <p><strong>Logic:</strong><br>
-      Multiple failed login attempts within a short timeframe
-      </p>
-
-      <p><strong>Enhancements:</strong></p>
-      <ul>
-        <li>Grouped by username and source</li>
-        <li>Threshold-based alerting</li>
-      </ul>
-
-      <p><strong>Impact:</strong><br>
-      Early detection of password guessing attacks.
-      </p>
-
+    <div class="code-block">
+      title: Multiple Failed Logins<br>
+      logsource: Windows Security<br>
+      detection:<br>
+      &nbsp;&nbsp;EventID: 4625<br>
+      condition: threshold &gt; 5 in short timeframe
     </div>
+    <p><strong>Detection Logic:</strong><br>
+      Multiple failed login attempts within a short time window.</p>
+    <p><strong>Enhancements:</strong></p>
+    <ul>
+      <li>Grouped by username + source IP</li>
+      <li>Implemented threshold-based alerting</li>
+    </ul>
+    <p><strong>Impact:</strong><br>
+      Early detection of password guessing attacks.</p>
+  </div>
+
+  <!-- DETECTION 3: Off-Hours Logon -->
+  <div class="project-card">
+    <div class="project-title">Off-Hours Logon Detection</div>
+    <div class="detection-meta">
+      <span class="badge mitre">T1078 - Valid Accounts</span>
+      <span class="badge log">Windows Security</span>
+      <span class="badge severity">Medium</span>
+    </div>
+    <div class="code-block">
+      title: Off-Hours Logon<br>
+      logsource: Windows Security<br>
+      detection:<br>
+      &nbsp;&nbsp;EventID: 4624<br>
+      &nbsp;&nbsp;Time: outside business hours<br>
+      condition: selection
+    </div>
+    <p><strong>Detection Logic:</strong><br>
+      Alert when successful logins occur outside defined business hours.</p>
+    <p><strong>Why it matters:</strong><br>
+      Detects potential unauthorized access, compromised accounts, or lateral movement.</p>
+    <p><strong>My Contribution:</strong></p>
+    <ul>
+      <li>Defined baseline working hours</li>
+      <li>Filtered service accounts to reduce false positives</li>
+      <li>Tuned alert thresholds for critical systems</li>
+    </ul>
+  </div>
+
+  <!-- DETECTION 4: Suspicious PowerShell Execution -->
+  <div class="project-card">
+    <div class="project-title">Suspicious PowerShell Activity Detection</div>
+    <div class="detection-meta">
+      <span class="badge mitre">T1059.001 - PowerShell</span>
+      <span class="badge log">Windows + Sysmon</span>
+      <span class="badge severity">High</span>
+    </div>
+    <div class="code-block">
+      title: Suspicious PowerShell Execution<br>
+      logsource: Windows<br>
+      detection:<br>
+      &nbsp;&nbsp;EventID: 4104, 4688<br>
+      &nbsp;&nbsp;CommandLine: encoded / hidden flags<br>
+      condition: selection
+    </div>
+    <p><strong>Detection Logic:</strong><br>
+      Detect encoded or obfuscated PowerShell execution patterns.</p>
+    <p><strong>Why it matters:</strong><br>
+      Common technique for fileless malware and post-exploitation.</p>
+    <p><strong>My Contribution:</strong></p>
+    <ul>
+      <li>Filtered benign administrative scripts</li>
+      <li>Focused on encoded and obfuscated commands</li>
+      <li>Reduced noise from automation tasks</li>
+    </ul>
+  </div>
+
+  <!-- DETECTION 5: Security Log Tampering -->
+  <div class="project-card">
+    <div class="project-title">Security Log Clearing Detection</div>
+    <div class="detection-meta">
+      <span class="badge mitre">T1070.001 - Indicator Removal on Host</span>
+      <span class="badge log">Windows Security</span>
+      <span class="badge severity">High</span>
+    </div>
+    <div class="code-block">
+      title: Security Log Clearing<br>
+      logsource: Windows Security<br>
+      detection:<br>
+      &nbsp;&nbsp;EventID: 1102<br>
+      condition: selection
+    </div>
+    <p><strong>Detection Logic:</strong><br>
+      Alert when Windows Security logs are cleared.</p>
+    <p><strong>Why it matters:</strong><br>
+      Attackers often erase logs to hide their activity.</p>
+    <p><strong>My Contribution:</strong></p>
+    <ul>
+      <li>Configured high-severity alerting</li>
+      <li>Correlated with suspicious user activity</li>
+      <li>Reduced false positives from system maintenance tasks</li>
+    </ul>
+  </div>
+
+  <!-- DETECTION 6: New Service Installation -->
+  <div class="project-card">
+    <div class="project-title">New Service Installation Detection</div>
+    <div class="detection-meta">
+      <span class="badge mitre">T1543 - Create or Modify System Process</span>
+      <span class="badge log">Windows System</span>
+      <span class="badge severity">Medium</span>
+    </div>
+    <div class="code-block">
+      title: New Service Installation<br>
+      logsource: Windows System<br>
+      detection:<br>
+      &nbsp;&nbsp;EventID: 7045<br>
+      condition: selection
+    </div>
+    <p><strong>Detection Logic:</strong><br>
+      Alert when new services are installed on endpoints.</p>
+    <p><strong>Why it matters:</strong><br>
+      Attackers use services for persistence.</p>
+    <p><strong>My Contribution:</strong></p>
+    <ul>
+      <li>Filtered known legitimate services</li>
+      <li>Focused on unusual service names and paths</li>
+      <li>Improved detection fidelity for persistence techniques</li>
+    </ul>
+  </div>
+
+  <!-- DETECTION 7: Privilege Abuse (Permission Changes) -->
+  <div class="project-card">
+    <div class="project-title">Object Permission Change Detection</div>
+    <div class="detection-meta">
+      <span class="badge mitre">T1222 - File and Directory Permissions Modification</span>
+      <span class="badge log">Windows Security</span>
+      <span class="badge severity">Medium</span>
+    </div>
+    <div class="code-block">
+      title: Object Permission Change<br>
+      logsource: Windows Security<br>
+      detection:<br>
+      &nbsp;&nbsp;EventID: 4670<br>
+      condition: selection
+    </div>
+    <p><strong>Detection Logic:</strong><br>
+      Alert when permissions on critical objects are modified.</p>
+    <p><strong>Why it matters:</strong><br>
+      Attackers may escalate privileges by modifying access controls.</p>
+    <p><strong>My Contribution:</strong></p>
+    <ul>
+      <li>Scoped monitoring to sensitive objects</li>
+      <li>Reduced noise from routine admin changes</li>
+      <li>Improved alert prioritization</li>
+    </ul>
   </div>
 
 </section>
