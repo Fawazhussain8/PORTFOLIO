@@ -686,16 +686,33 @@
       .cert-item { flex-direction: column; align-items: flex-start; }
     }
 
-    .cert-img {
-  width: 48px;
-  height: 48px;
-  object-fit: cover;
-  border-radius: 4px;
-  border: 1px solid var(--border);
-  transition: transform 0.2s ease, border-color 0.2s ease;
-}
 
-.cert-item:hover .cert-img {
-  transform: scale(1.05);
-  border-color: var(--accent);
-}
+    .cert-img {
+      width: 48px;
+      height: 48px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .cert-item:hover .cert-img {
+      transform: scale(1.05);
+      border-color: var(--accent);
+    }
+
+    /* Highlight for in-progress certs */
+    .cert-item:has(.cert-status.progress) {
+      border-left: 2px solid var(--accent);
+    }
+
+    /* Tag for in-progress/preparing certs */
+    .cert-tag {
+      font-size: 10px;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 2px 6px;
+      margin-left: 8px;
+      border-radius: 2px;
+      vertical-align: middle;
+    }
