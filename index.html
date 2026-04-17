@@ -3,693 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Fawaz Hussain — Detection Engineer & DFIR Analyst</title>
+  <title>Fawaz Hussain</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg:        #0d0f0e;
-      --surface:   #141714;
-      --surface2:  #1b1f1b;
-      --border:    #2a2f2a;
-      --accent:    #b8960c;   /* Dark Autumn gold */
-      --accent2:   #7a4f1e;   /* burnt sienna */
-      --green:     #4caf78;   /* terminal green */
-      --red:       #c0392b;
-      --text:      #d4cfc5;
-      --text-dim:  #7a766e;
-      --text-head: #f0ebe0;
-      --mono:      'IBM Plex Mono', monospace;
-      --sans:      'Syne', sans-serif;
-      --body:      'IBM Plex Sans', sans-serif;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--body);
-      font-size: 15px;
-      line-height: 1.75;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* Scanline overlay */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0,0,0,0.03) 2px,
-        rgba(0,0,0,0.03) 4px
-      );
-      pointer-events: none;
-      z-index: 1000;
-    }
-
-    /* ─── NAV ─────────────────────────────────── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: rgba(13,15,14,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 clamp(1rem, 5vw, 3rem);
-      height: 52px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .nav-brand {
-      font-family: var(--sans);
-      font-weight: 800;
-      font-size: 16px;
-      color: var(--text-head);
-      letter-spacing: 0.04em;
-      text-decoration: none;
-    }
-
-    .nav-brand span { color: var(--accent); }
-
-    .nav-links {
-      display: flex;
-      gap: 1.5rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: var(--text-dim);
-      text-decoration: none;
-      font-family: var(--body);
-      font-size: 12px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--accent); }
-
-    /* ─── LAYOUT ──────────────────────────────── */
-    main {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 100px clamp(1rem, 5vw, 2rem) 80px;
-    }
-
-    section { margin-bottom: 72px; }
-
-    /* ─── SECTION HEADERS ─────────────────────── */
-    .section-label {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 28px;
-    }
-
-    .section-label::before {
-      content: '//';
-      font-family: var(--mono);
-      color: var(--accent);
-      font-size: 13px;
-      font-weight: 500;
-    }
-
-    .section-label h2 {
-      font-family: var(--sans);
-      font-weight: 700;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--text-dim);
-    }
-
-    .section-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    /* ─── HERO ────────────────────────────────── */
-    #hero {
-      padding-top: 20px;
-      margin-bottom: 80px;
-    }
-
-    .hero-prompt {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--text-dim);
-      letter-spacing: 0.1em;
-      margin-bottom: 18px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .hero-prompt::before {
-      content: '▶';
-      color: var(--green);
-      font-size: 8px;
-    }
-
-    h1 {
-      font-family: var(--sans);
-      font-size: clamp(2.2rem, 6vw, 3.6rem);
-      font-weight: 800;
-      color: var(--text-head);
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      margin-bottom: 16px;
-    }
-
-    h1 em {
-      font-style: normal;
-      color: var(--accent);
-    }
-
-    .hero-sub {
-      font-family: var(--body);
-      font-size: 15px;
-      color: var(--text-dim);
-      max-width: 520px;
-      margin-bottom: 32px;
-      line-height: 1.8;
-    }
-
-    .hero-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 32px;
-    }
-
-    .tag {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      color: var(--text-dim);
-      font-family: var(--body);
-      font-size: 11px;
-      padding: 4px 10px;
-      border-radius: 2px;
-      letter-spacing: 0.04em;
-    }
-
-    .tag.active {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: rgba(184,150,12,0.06);
-    }
-
-    .hero-links {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 9px 18px;
-      font-family: var(--body);
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      text-decoration: none;
-      border-radius: 2px;
-      transition: all 0.2s;
-      cursor: pointer;
-      border: none;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #0d0f0e;
-      font-weight: 500;
-    }
-
-    .btn-primary:hover {
-      background: #d4ad14;
-    }
-
-    .btn-ghost {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text-dim);
-    }
-
-    .btn-ghost:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    /* ─── STATS ROW ───────────────────────────── */
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
-      margin-bottom: 72px;
-    }
-
-    .stat {
-      background: var(--surface);
-      padding: 20px;
-      text-align: center;
-    }
-
-    .stat-num {
-      font-family: var(--sans);
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--accent);
-      display: block;
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-
-    .stat-label {
-      font-family: var(--body);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-dim);
-    }
-
-    /* ─── PROJECTS ────────────────────────────── */
-    .projects-grid {
-      display: grid;
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .project-card {
-      background: var(--surface);
-      padding: 24px;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-      transition: background 0.2s;
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .project-card:hover {
-      background: var(--surface2);
-    }
-
-    .project-id {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text-dim);
-      letter-spacing: 0.1em;
-      margin-bottom: 8px;
-    }
-
-    .project-title {
-      font-family: var(--sans);
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--text-head);
-      margin-bottom: 8px;
-    }
-
-    .project-desc {
-      font-family: var(--body);
-      font-size: 13px;
-      color: var(--text-dim);
-      line-height: 1.75;
-      max-width: 560px;
-    }
-
-    .project-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 14px;
-    }
-
-    .ptag {
-      font-family: var(--body);
-      font-size: 11px;
-      padding: 2px 8px;
-      border-radius: 2px;
-      letter-spacing: 0.04em;
-    }
-
-    .ptag-mitre {
-      background: rgba(184,150,12,0.1);
-      color: var(--accent);
-      border: 1px solid rgba(184,150,12,0.2);
-    }
-
-    .ptag-tool {
-      background: rgba(76,175,120,0.08);
-      color: var(--green);
-      border: 1px solid rgba(76,175,120,0.15);
-    }
-
-    .ptag-type {
-      background: var(--surface2);
-      color: var(--text-dim);
-      border: 1px solid var(--border);
-    }
-
-    .project-arrow {
-      color: var(--text-dim);
-      font-size: 18px;
-      align-self: start;
-      margin-top: 2px;
-      transition: transform 0.2s, color 0.2s;
-    }
-
-    .project-card:hover .project-arrow {
-      transform: translate(3px, -3px);
-      color: var(--accent);
-    }
-
-    /* ─── DETECTION RULES ─────────────────────── */
-    .rules-list {
-      display: grid;
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .rule-item {
-      background: var(--surface);
-      padding: 16px 20px;
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 16px;
-      align-items: center;
-      text-decoration: none;
-      color: inherit;
-      transition: background 0.15s;
-    }
-
-    .rule-item:hover { background: var(--surface2); }
-
-    .rule-severity {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    .sev-high   { background: var(--red); box-shadow: 0 0 6px rgba(192,57,43,0.5); }
-    .sev-medium { background: var(--accent); box-shadow: 0 0 6px rgba(184,150,12,0.4); }
-    .sev-low    { background: var(--green); box-shadow: 0 0 6px rgba(76,175,120,0.4); }
-
-    .rule-name {
-      font-family: var(--body);
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text-head);
-    }
-
-    .rule-technique {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--text-dim);
-      display: block;
-      margin-top: 3px;
-    }
-
-    .rule-badge {
-      font-family: var(--body);
-      font-size: 11px;
-      padding: 2px 8px;
-      border-radius: 2px;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      color: var(--text-dim);
-      white-space: nowrap;
-    }
-
-    /* ─── SKILLS ──────────────────────────────── */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .skill-group {
-      background: var(--surface);
-      padding: 20px;
-    }
-
-    .skill-group-title {
-      font-family: var(--body);
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--accent);
-      margin-bottom: 14px;
-      font-weight: 600;
-    }
-
-    .skill-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-
-    .skill-item:last-child { margin-bottom: 0; }
-
-    .skill-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--border);
-      flex-shrink: 0;
-    }
-
-    .skill-item.core .skill-dot  { background: var(--green); }
-    .skill-item.solid .skill-dot { background: var(--accent); }
-    .skill-item.learning .skill-dot { background: var(--accent2); }
-
-    .skill-name {
-      font-family: var(--body);
-      font-size: 13px;
-      color: var(--text);
-    }
-
-    /* ─── CERTS ───────────────────────────────── */
-    .certs-list {
-      display: grid;
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .cert-item {
-      background: var(--surface);
-      padding: 16px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .cert-left { display: flex; align-items: center; gap: 14px; }
-
-    .cert-status {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    .cert-status.done { background: var(--green); box-shadow: 0 0 6px rgba(76,175,120,0.5); }
-    .cert-status.progress { background: var(--accent); box-shadow: 0 0 6px rgba(184,150,12,0.4); animation: pulse 2s infinite; }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
-
-    .cert-name {
-      font-family: var(--body);
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text-head);
-    }
-
-    .cert-issuer {
-      font-family: var(--body);
-      font-size: 12px;
-      color: var(--text-dim);
-      display: block;
-      margin-top: 2px;
-    }
-
-    .cert-date {
-      font-family: var(--body);
-      font-size: 12px;
-      color: var(--text-dim);
-      white-space: nowrap;
-    }
-
-    /* ─── LOG ─────────────────────────────────── */
-    .log-list {
-      display: grid;
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .log-entry {
-      background: var(--surface);
-      padding: 14px 20px;
-      display: grid;
-      grid-template-columns: 100px 1fr;
-      gap: 16px;
-      align-items: start;
-    }
-
-    .log-date {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--text-dim);
-      letter-spacing: 0.04em;
-      padding-top: 2px;
-    }
-
-    .log-text {
-      font-family: var(--body);
-      font-size: 13px;
-      color: var(--text);
-      line-height: 1.75;
-    }
-
-    .log-text strong {
-      color: var(--text-head);
-    }
-
-    /* ─── CONTACT ─────────────────────────────── */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .contact-item {
-      background: var(--surface);
-      padding: 20px;
-      text-decoration: none;
-      color: inherit;
-      transition: background 0.15s;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .contact-item:hover { background: var(--surface2); }
-
-    .contact-icon {
-      font-size: 18px;
-      flex-shrink: 0;
-    }
-
-    .contact-label {
-      font-family: var(--body);
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--text-dim);
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .contact-value {
-      font-family: var(--body);
-      font-size: 13px;
-      color: var(--text-head);
-    }
-
-    /* ─── FOOTER ──────────────────────────────── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 24px clamp(1rem, 5vw, 3rem);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .footer-left {
-      font-family: var(--body);
-      font-size: 12px;
-      color: var(--text-dim);
-    }
-
-    .footer-left span { color: var(--accent); }
-
-    .footer-right {
-      font-family: var(--body);
-      font-size: 12px;
-      color: var(--text-dim);
-    }
-
-    /* ─── FADE IN ─────────────────────────────── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    section {
-      animation: fadeUp 0.5s ease both;
-    }
-
-    section:nth-child(1) { animation-delay: 0.05s; }
-    section:nth-child(2) { animation-delay: 0.1s; }
-    section:nth-child(3) { animation-delay: 0.15s; }
-    section:nth-child(4) { animation-delay: 0.2s; }
-    section:nth-child(5) { animation-delay: 0.25s; }
-    section:nth-child(6) { animation-delay: 0.3s; }
-    section:nth-child(7) { animation-delay: 0.35s; }
-
-    /* ─── RESPONSIVE ──────────────────────────── */
-    @media (max-width: 600px) {
-      .nav-links { display: none; }
-      .log-entry { grid-template-columns: 1fr; gap: 4px; }
-      .cert-item { flex-direction: column; align-items: flex-start; }
-    }
-  </style>
+<link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 
@@ -697,11 +14,11 @@
   <nav>
     <a class="nav-brand" href="#hero">FH<span>.</span></a>
     <ul class="nav-links">
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#detections">Detections</a></li>
+      <li><a href="/blog.html">Log</a></li>
+      <li><a href="/projects.html">Projects</a></li>
+      <li><a href="/detections.html">Detections</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#certs">Certs</a></li>
-      <li><a href="#log">Log</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
@@ -710,12 +27,12 @@
 
     <!-- HERO -->
     <section id="hero">
-      <div class="hero-prompt">analyst@threatlab:~$ whoami</div>
+      <div class="hero-prompt">root@soc-lab:~$ whoami</div>
       <h1>Fawaz<br><em>Hussain</em></h1>
       <p class="hero-sub">
         Detection Engineer & DFIR Analyst. Building detection logic,
         hunting threats with MITRE ATT&CK, and engineering response pipelines.
-        Currently preparing for HTB CDSA.
+        Currently preparing for Hack The Box's CDSA.
       </p>
       <div class="hero-tags">
         <span class="tag active">Detection Engineering</span>
@@ -723,10 +40,9 @@
         <span class="tag">MITRE ATT&CK</span>
         <span class="tag">SIEM Engineering</span>
         <span class="tag">Threat Hunting</span>
-        <span class="tag">SOAR</span>
       </div>
       <div class="hero-links">
-        <a class="btn btn-primary" href="https://github.com/YOUR_GITHUB" target="_blank">↗ GitHub</a>
+        <a class="btn btn-primary" href="https://github.com/Fawazhussain8" target="_blank">↗ GitHub</a>
         <a class="btn btn-ghost" href="https://linkedin.com/in/fawaz-hussain-2a960519b" target="_blank">LinkedIn</a>
         <a class="btn btn-ghost" href="#contact">Contact</a>
       </div>
@@ -735,8 +51,8 @@
     <!-- STATS -->
     <div class="stats-row">
       <div class="stat">
-        <span class="stat-num" id="stat-rules">12</span>
-        <span class="stat-label">Detection Rules</span>
+        <span class="stat-num" id="stat-alerts">100+</span>
+        <span class="stat-label">SOC Alerts Triaged</span>
       </div>
       <div class="stat">
         <span class="stat-num" id="stat-labs">30+</span>
@@ -751,154 +67,6 @@
         <span class="stat-label">Year Experience</span>
       </div>
     </div>
-
-    <!-- PROJECTS -->
-    <section id="projects">
-      <div class="section-label"><h2>Investigations & Projects</h2></div>
-      <div class="projects-grid">
-
-        <a class="project-card" href="#" target="_blank">
-          <div>
-            <div class="project-id">IR-001 · DFIR</div>
-            <div class="project-title">Crypto-Miner Detection & DFIR Investigation</div>
-            <div class="project-desc">
-              Investigated a suspected crypto-mining incident. Performed behavioral analysis,
-              identified persistence mechanisms via scheduled tasks, traced C2 beaconing pattern,
-              and delivered root cause documentation within 24 hours.
-            </div>
-            <div class="project-tags">
-              <span class="ptag ptag-mitre">T1053 · Scheduled Task</span>
-              <span class="ptag ptag-mitre">T1071 · C2</span>
-              <span class="ptag ptag-tool">Log360</span>
-              <span class="ptag ptag-tool">Wireshark</span>
-              <span class="ptag ptag-type">Incident Report</span>
-            </div>
-          </div>
-          <span class="project-arrow">↗</span>
-        </a>
-
-        <a class="project-card" href="#" target="_blank">
-          <div>
-            <div class="project-id">LAB-001 · SIEM/XDR</div>
-            <div class="project-title">SOC Home Lab — Wazuh + SOAR Pipeline</div>
-            <div class="project-desc">
-              Deployed multi-host Wazuh SIEM with Linux/Windows agents, FIM, and
-              MITRE ATT&CK-mapped alerting. Integrated Shuffle SOAR for automated triage,
-              VirusTotal enrichment, and TheHive case creation.
-            </div>
-            <div class="project-tags">
-              <span class="ptag ptag-tool">Wazuh</span>
-              <span class="ptag ptag-tool">Shuffle SOAR</span>
-              <span class="ptag ptag-tool">TheHive</span>
-              <span class="ptag ptag-type">Home Lab</span>
-            </div>
-          </div>
-          <span class="project-arrow">↗</span>
-        </a>
-
-        <a class="project-card" href="#" target="_blank">
-          <div>
-            <div class="project-id">LAB-002 · Malware Analysis</div>
-            <div class="project-title">Static & Dynamic Malware Analysis Lab</div>
-            <div class="project-desc">
-              Built isolated malware analysis environment using PEStudio, Procmon, YARA, HxD,
-              and Wireshark. Documented IOCs, persistence artifacts, and C2 patterns mapped
-              to MITRE ATT&CK framework.
-            </div>
-            <div class="project-tags">
-              <span class="ptag ptag-tool">PEStudio</span>
-              <span class="ptag ptag-tool">YARA</span>
-              <span class="ptag ptag-tool">Procmon</span>
-              <span class="ptag ptag-mitre">T1027 · Obfuscation</span>
-              <span class="ptag ptag-type">Lab Writeup</span>
-            </div>
-          </div>
-          <span class="project-arrow">↗</span>
-        </a>
-
-        <a class="project-card" href="#" target="_blank">
-          <div>
-            <div class="project-id">LAB-003 · Threat Hunting</div>
-            <div class="project-title">Ransomware DFIR — Artifact Analysis & TTP Mapping</div>
-            <div class="project-desc">
-              Conducted DFIR investigation on ransomware incident. Analyzed system artifacts,
-              persistence mechanisms, TTPs, and IOCs to determine attack scope and drive
-              remediation. Produced detailed incident report for stakeholder review.
-            </div>
-            <div class="project-tags">
-              <span class="ptag ptag-mitre">T1486 · Data Encryption</span>
-              <span class="ptag ptag-mitre">T1490 · Shadow Copy</span>
-              <span class="ptag ptag-tool">ELK Stack</span>
-              <span class="ptag ptag-type">DFIR Report</span>
-            </div>
-          </div>
-          <span class="project-arrow">↗</span>
-        </a>
-
-      </div>
-    </section>
-
-    <!-- DETECTION RULES -->
-    <section id="detections">
-      <div class="section-label"><h2>Detection Rules</h2></div>
-      <div class="rules-list">
-
-        <a class="rule-item" href="https://github.com/YOUR_GITHUB/detection-engineering-lab" target="_blank">
-          <span class="rule-severity sev-high"></span>
-          <div>
-            <span class="rule-name">Suspicious PowerShell Encoded Command Execution</span>
-            <span class="rule-technique">T1059.001 · PowerShell — Windows Security Events</span>
-          </div>
-          <span class="rule-badge">Sigma · SIEM</span>
-        </a>
-
-        <a class="rule-item" href="https://github.com/YOUR_GITHUB/detection-engineering-lab" target="_blank">
-          <span class="rule-severity sev-high"></span>
-          <div>
-            <span class="rule-name">LSASS Memory Access — Credential Dumping</span>
-            <span class="rule-technique">T1003.001 · OS Credential Dumping — Sysmon EventID 10</span>
-          </div>
-          <span class="rule-badge">Sigma · EDR</span>
-        </a>
-
-        <a class="rule-item" href="https://github.com/YOUR_GITHUB/detection-engineering-lab" target="_blank">
-          <span class="rule-severity sev-medium"></span>
-          <div>
-            <span class="rule-name">Scheduled Task Created via schtasks.exe</span>
-            <span class="rule-technique">T1053.005 · Scheduled Task/Job — Windows EventID 4698</span>
-          </div>
-          <span class="rule-badge">Sigma · SIEM</span>
-        </a>
-
-        <a class="rule-item" href="https://github.com/YOUR_GITHUB/detection-engineering-lab" target="_blank">
-          <span class="rule-severity sev-medium"></span>
-          <div>
-            <span class="rule-name">Lateral Movement via PsExec Remote Execution</span>
-            <span class="rule-technique">T1021 · Remote Services — Sysmon + Windows Security</span>
-          </div>
-          <span class="rule-badge">Sigma · SIEM</span>
-        </a>
-
-        <a class="rule-item" href="https://github.com/YOUR_GITHUB/detection-engineering-lab" target="_blank">
-          <span class="rule-severity sev-low"></span>
-          <div>
-            <span class="rule-name">Suspicious Outbound DNS Query Volume</span>
-            <span class="rule-technique">T1071.004 · DNS C2 Beaconing — Network Telemetry</span>
-          </div>
-          <span class="rule-badge">SPL · Splunk</span>
-        </a>
-
-        <a class="rule-item" href="https://github.com/YOUR_GITHUB/detection-engineering-lab" target="_blank">
-          <span class="rule-severity sev-low"></span>
-          <div>
-            <span class="rule-name">Brute Force — Multiple Failed Logon Attempts</span>
-            <span class="rule-technique">T1110.001 · Password Guessing — Windows EventID 4625</span>
-          </div>
-          <span class="rule-badge">Sigma · Wazuh</span>
-        </a>
-
-      </div>
-    </section>
 
     <!-- SKILLS -->
     <section id="skills">
@@ -1031,34 +199,6 @@
       </div>
     </section>
 
-    <!-- LEARNING LOG -->
-    <section id="log">
-      <div class="section-label"><h2>Learning Log</h2></div>
-      <div class="log-list">
-
-        <div class="log-entry">
-          <span class="log-date">2025-07-XX</span>
-          <span class="log-text"><strong>HTB CDSA Prep</strong> — Working through Windows Forensics module. Practiced MFT parsing and timeline analysis on a sample image. Key takeaway: <code style="color:var(--accent);font-size:11px;">$MFT</code> records show file creation before volume shadow copies — useful for ransomware staging detection.</span>
-        </div>
-
-        <div class="log-entry">
-          <span class="log-date">2025-07-XX</span>
-          <span class="log-text"><strong>Splunk Lab</strong> — Configured Universal Forwarder on personal laptop, confirmed connectivity to indexer. Next step: configure monitored inputs and test end-to-end event ingestion.</span>
-        </div>
-
-        <div class="log-entry">
-          <span class="log-date">2025-06-XX</span>
-          <span class="log-text"><strong>Detection Rule</strong> — Wrote Sigma rule for LSASS access via Sysmon EventID 10. Tested against Mimikatz execution in lab. Published to GitHub detection-engineering-lab repo.</span>
-        </div>
-
-        <div class="log-entry">
-          <span class="log-date">2025-06-XX</span>
-          <span class="log-text"><strong>Threat Hunt</strong> — Ran hypothesis-driven hunt for lateral movement artifacts in SIEM telemetry. Queried for PsExec service installs (EventID 7045) correlated with SMB traffic spikes. No hits in production — documented hunt logic as reusable playbook.</span>
-        </div>
-
-      </div>
-    </section>
-
     <!-- CONTACT -->
     <section id="contact">
       <div class="section-label"><h2>Contact</h2></div>
@@ -1067,28 +207,28 @@
           <span class="contact-icon">in</span>
           <div>
             <span class="contact-label">LinkedIn</span>
-            <span class="contact-value">fawaz-hussain</span>
+            <span class="contact-value">Fawaz Hussain</span>
           </div>
         </a>
-        <a class="contact-item" href="https://github.com/YOUR_GITHUB" target="_blank">
+        <a class="contact-item" href="https://github.com/Fawazhussain8" target="_blank">
           <span class="contact-icon">⌥</span>
           <div>
             <span class="contact-label">GitHub</span>
-            <span class="contact-value">detection-engineering-lab</span>
+            <span class="contact-value">Fawazhussain8</span>
           </div>
         </a>
-        <a class="contact-item" href="/cdn-cgi/l/email-protection#bfe6f0eaede0faf2fef6f3">
-          <span class="contact-icon">✉</span>
-          <div>
-            <span class="contact-label">Email</span>
-            <span class="contact-value"><span class="__cf_email__" data-cfemail="5920362c2b193c34383035773a3634">[email&#160;protected]</span></span>
-          </div>
-        </a>
-        <a class="contact-item" href="https://app.hackthebox.com/users/YOUR_HTB_ID" target="_blank">
+        <a class="contact-item" href="https://app.hackthebox.com/users/@fawazhr88" target="_blank">
           <span class="contact-icon">⬡</span>
           <div>
             <span class="contact-label">Hack The Box</span>
-            <span class="contact-value">HTB Profile</span>
+            <span class="contact-value">@fawazhr88</span>
+          </div>
+        </a>
+                <a class="contact-item" href="https://app.letsdefend.io/user/fawazhr88" target="_blank">
+          <span class="contact-icon">⌕</span>
+          <div>
+            <span class="contact-label">LetsDefend</span>
+            <span class="contact-value">@fawazhr88</span>
           </div>
         </a>
       </div>
