@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Projects · Fawaz Hussain</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="/index.html">FH<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="/projects.html">Projects</a></li>
+    <li><a href="/detections.html">Detections</a></li>
+    <li><a href="/blog.html">Log</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<section>
+  <div class="section-label"><h2>Projects</h2></div>
+
+  <!-- PROJECT 1 -->
+    <div class="project-title">
+      Log Pipeline Optimization & Alert Engineering (Log360)
+    </div>
+
+    <div class="project-desc">
+
+      <p><strong>Context:</strong><br>
+      SIEM ingesting excessive log volume (~300k/day), resulting in noise and reduced detection efficiency.</p>
+
+      <p><strong>What I Did:</strong></p>
+      <ul>
+        <li>Designed log filtering strategy to reduce ingestion noise</li>
+        <li>Implemented targeted event collection (Windows Security + Syslog)</li>
+        <li>Excluded low-value and repetitive logs</li>
+        <li>Created alert profiles for critical security events</li>
+      </ul>
+
+      <p><strong>Key Focus Areas:</strong></p>
+      <ul>
+        <li>Privilege escalation monitoring</li>
+        <li>Authentication anomalies (failed logins, off-hours activity)</li>
+        <li>Security log tampering detection</li>
+      </ul>
+
+      <p><strong>Outcome:</strong></p>
+      <ul>
+        <li>Reduced log volume from ~300k → <100k/day</li>
+        <li>Improved signal-to-noise ratio</li>
+        <li>Reduced alert fatigue</li>
+      </ul>
+
+      <p><strong>Note:</strong><br>
+      Due to confidentiality, configurations and screenshots are not disclosed.
+      This summary reflects the engineering approach and outcomes.</p>
+
+    </div>
+  </div>
+
+</section>
+
+    <section id="projects">
+      <div class="section-label"><h2>Investigations & Projects</h2></div>
+      <div class="projects-grid">
+
+        <a class="project-card" href="#" target="_blank">
+          <div>
+            <div class="project-id">LAB-001 · SIEM/XDR</div>
+            <div class="project-title">SOC Home Lab — Wazuh + SOAR Pipeline</div>
+            <div class="project-desc">
+              Deployed multi-host Wazuh SIEM with Linux/Windows agents, FIM, and
+              MITRE ATT&CK-mapped alerting. Integrated Shuffle SOAR for automated triage,
+              VirusTotal enrichment, and TheHive case creation.
+            </div>
+            <div class="project-tags">
+              <span class="ptag ptag-tool">Wazuh</span>
+              <span class="ptag ptag-tool">Shuffle SOAR</span>
+              <span class="ptag ptag-tool">TheHive</span>
+              <span class="ptag ptag-type">Home Lab</span>
+            </div>
+          </div>
+          <span class="project-arrow">↗</span>
+        </a>
+
+        <a class="project-card" href="#" target="_blank">
+          <div>
+            <div class="project-id">LAB-002 · Malware Analysis</div>
+            <div class="project-title">Static & Dynamic Malware Analysis Lab</div>
+            <div class="project-desc">
+              Built isolated malware analysis environment using PEStudio, Procmon, YARA, HxD,
+              and Wireshark. Documented IOCs, persistence artifacts, and C2 patterns mapped
+              to MITRE ATT&CK framework.
+            </div>
+            <div class="project-tags">
+              <span class="ptag ptag-tool">PEStudio</span>
+              <span class="ptag ptag-tool">YARA</span>
+              <span class="ptag ptag-tool">Procmon</span>
+              <span class="ptag ptag-mitre">T1027 · Obfuscation</span>
+              <span class="ptag ptag-type">Lab Writeup</span>
+            </div>
+          </div>
+          <span class="project-arrow">↗</span>
+        </a>
+      </div>
+    </section>
+
+</main>
+</body>
+</html>

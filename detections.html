@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Detections · Fawaz Hussain</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="/index.html">FH<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="/projects.html">Projects</a></li>
+    <li><a href="/detections.html">Detections</a></li>
+    <li><a href="/blog.html">Log</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<section>
+  <div class="section-label"><h2>Detection Engineering</h2></div>
+
+  <!-- DETECTION 1 -->
+  <div class="project-card" style="display:block;">
+
+    <div class="project-title">
+      Privilege Group Change Monitoring
+    </div>
+
+    <div class="project-desc">
+
+      <p><strong>Platform:</strong> Log360</p>
+
+      <p><strong>Data Source:</strong> Windows Security Logs</p>
+
+      <p><strong>Relevant Events:</strong><br>
+      4728, 4732, 4756 (User added to privileged group)
+      </p>
+
+      <p><strong>Detection Logic:</strong><br>
+      Alert on addition of users to privileged groups (e.g., Administrators, Domain Admins)
+      </p>
+
+      <p><strong>Why it matters:</strong><br>
+      Indicates potential privilege escalation or unauthorized access expansion.
+      </p>
+
+      <p><strong>My Contribution:</strong></p>
+      <ul>
+        <li>Filtered logs to focus only on privilege-related events</li>
+        <li>Configured alert profile for high severity triggers</li>
+        <li>Reduced noise from unrelated security logs</li>
+      </ul>
+
+    </div>
+  </div>
+
+  <!-- DETECTION 2 -->
+  <div class="project-card" style="display:block;">
+
+    <div class="project-title">
+      Brute Force Login Detection
+    </div>
+
+    <div class="project-desc">
+
+      <p><strong>Event ID:</strong> 4625</p>
+
+      <p><strong>Logic:</strong><br>
+      Multiple failed login attempts within a short timeframe
+      </p>
+
+      <p><strong>Enhancements:</strong></p>
+      <ul>
+        <li>Grouped by username and source</li>
+        <li>Threshold-based alerting</li>
+      </ul>
+
+      <p><strong>Impact:</strong><br>
+      Early detection of password guessing attacks.
+      </p>
+
+    </div>
+  </div>
+
+</section>
+</main>
+
+</body>
+</html>
+
