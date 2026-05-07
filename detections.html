@@ -12,12 +12,16 @@
   <header class="navbar">
     <a href="index.html" class="logo">FH<span>.</span></a>
 
-    <nav>
-      <a href="projects.html">PROJECTS</a>
-      <a href="detections.html" class="active">DETECTIONS</a>
-      <a href="blog.html">LOG</a>
-    </nav>
-  </header>
+<nav>
+  <a class="nav-brand" href="/index.html">FH<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="/projects.html">Projects</a></li>
+    <li><a href="/detections.html">Detections</a></li>
+    <li><a href="/blog.html">Log</a></li>
+  </ul>
+</nav>
+
+<main>
 
   <main class="page-container">
 
@@ -133,29 +137,33 @@
             <p><strong>Time Condition:</strong> Outside business hours</p>
           </div>
 
-          <div class="detection-column">
-            <p><strong>Detection Logic:</strong></p>
-            <p>
-              Alert when successful logins occur outside defined business hours.
-            </p>
-
-            <p><strong>Why it matters:</strong></p>
-            <p>
-              Detects potential unauthorized access or compromised accounts.
-            </p>
-          </div>
-
-        </div>
-
-        <div class="contribution-section">
-          <h4>My Contributions</h4>
-
-          <ul>
-            <li>Defined baseline working hours</li>
-            <li>Tuned alert thresholds for privileged accounts</li>
-            <li>Reduced false positives from service accounts</li>
-          </ul>
-        </div>
+  <!-- DETECTION 3: Off-Hours Logon -->
+  <div class="project-card">
+    <div class="project-title">Off-Hours Logon Detection</div>
+    <div class="detection-meta">
+      <span class="badge mitre">T1078 - Valid Accounts</span>
+      <span class="badge log">Windows Security</span>
+      <span class="badge severity">Medium</span>
+    </div>
+    <div class="code-block">
+      title: Off-Hours Logon<br>
+      logsource: Windows Security<br>
+      detection:<br>
+      &nbsp;&nbsp;EventID: 4624<br>
+      &nbsp;&nbsp;Time: outside business hours<br>
+      condition: selection
+    </div>
+    <p><strong>Detection Logic:</strong><br>
+      Alert when successful logins occur outside defined business hours.</p>
+    <p><strong>Why it matters:</strong><br>
+      Detects potential unauthorized access, compromised accounts, or lateral movement.</p>
+    <p><strong>My Contribution:</strong></p>
+    <ul>
+      <li>Defined baseline working hours</li>
+      <li>Filtered service accounts to reduce false positives</li>
+      <li>Tuned alert thresholds for critical systems</li>
+    </ul>
+  </div>
 
       </div>
 
@@ -243,93 +251,59 @@
           </ul>
         </div>
 
-      </div>
+  <!-- DETECTION 6: New Service Installation -->
+  <div class="project-card">
+    <div class="project-title">New Service Installation Detection</div>
+    <div class="detection-meta">
+      <span class="badge mitre">T1543 - Create or Modify System Process</span>
+      <span class="badge log">Windows System</span>
+      <span class="badge severity">Medium</span>
+    </div>
+    <div class="code-block">
+      title: New Service Installation<br>
+      logsource: Windows System<br>
+      detection:<br>
+      &nbsp;&nbsp;EventID: 7045<br>
+      condition: selection
+    </div>
+    <p><strong>Detection Logic:</strong><br>
+      Alert when new services are installed on endpoints.</p>
+    <p><strong>Why it matters:</strong><br>
+      Attackers use services for persistence.</p>
+    <p><strong>My Contribution:</strong></p>
+    <ul>
+      <li>Filtered known legitimate services</li>
+      <li>Focused on unusual service names and paths</li>
+      <li>Improved detection fidelity for persistence techniques</li>
+    </ul>
+  </div>
 
-      <!-- Service Installation -->
-      <div class="detection-card">
-
-        <div class="detection-header">
-          <h3>New Service Installation Detection</h3>
-          <span class="mitre-tag">
-            T1543 - Create or Modify System Process | Medium
-          </span>
-        </div>
-
-        <div class="detection-grid">
-
-          <div class="detection-column">
-            <p><strong>Event ID:</strong> 7045</p>
-            <p><strong>Source:</strong> Windows System</p>
-          </div>
-
-          <div class="detection-column">
-            <p><strong>Detection Logic:</strong></p>
-            <p>
-              Alert when new services are installed on endpoints.
-            </p>
-
-            <p><strong>Why it matters:</strong></p>
-            <p>
-              Attackers use services for persistence.
-            </p>
-          </div>
-
-        </div>
-
-        <div class="contribution-section">
-          <h4>My Contributions</h4>
-
-          <ul>
-            <li>Filtered legitimate software deployment services</li>
-            <li>Tuned for uncommon service creation patterns</li>
-            <li>Reduced noise from enterprise management tools</li>
-          </ul>
-        </div>
-
-      </div>
-
-      <!-- Permission Change -->
-      <div class="detection-card">
-
-        <div class="detection-header">
-          <h3>Object Permission Change Detection</h3>
-          <span class="mitre-tag">
-            T1222 - File & Directory Permissions Modification | Medium
-          </span>
-        </div>
-
-        <div class="detection-grid">
-
-          <div class="detection-column">
-            <p><strong>Event ID:</strong> 4670</p>
-            <p><strong>Source:</strong> Windows Security</p>
-          </div>
-
-          <div class="detection-column">
-            <p><strong>Detection Logic:</strong></p>
-            <p>
-              Alert when permissions on critical objects are modified.
-            </p>
-
-            <p><strong>Why it matters:</strong></p>
-            <p>
-              Attackers may escalate privileges by modifying access controls.
-            </p>
-          </div>
-
-        </div>
-
-        <div class="contribution-section">
-          <h4>My Contributions</h4>
-
-          <ul>
-            <li>Scoped monitoring to sensitive directories</li>
-            <li>Tuned alerts for privileged object modifications</li>
-            <li>Reduced noise from routine admin operations</li>
-          </ul>
-        </div>
-
-      </div>
+  <!-- DETECTION 7: Privilege Abuse (Permission Changes) -->
+  <div class="project-card">
+    <div class="project-title">Object Permission Change Detection</div>
+    <div class="detection-meta">
+      <span class="badge mitre">T1222 - File and Directory Permissions Modification</span>
+      <span class="badge log">Windows Security</span>
+      <span class="badge severity">Medium</span>
+    </div>
+    <div class="code-block">
+      title: Object Permission Change<br>
+      logsource: Windows Security<br>
+      detection:<br>
+      &nbsp;&nbsp;EventID: 4670<br>
+      condition: selection
+    </div>
+    <p><strong>Detection Logic:</strong><br>
+      Alert when permissions on critical objects are modified.</p>
+    <p><strong>Why it matters:</strong><br>
+      Attackers may escalate privileges by modifying access controls.</p>
+    <p><strong>My Contribution:</strong></p>
+    <ul>
+      <li>Scoped monitoring to sensitive objects</li>
+      <li>Reduced noise from routine admin changes</li>
+      <li>Improved alert prioritization</li>
+    </ul>
+  </div>
 
     </section>
 
