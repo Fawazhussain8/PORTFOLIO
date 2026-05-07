@@ -202,7 +202,226 @@
     </div>
 
   </div>
+  <!-- Detection 4 -->
+  <div class="detection-card">
 
+    <div class="detection-left">
+
+      <div>
+        <h3 class="detection-title">
+          Suspicious PowerShell Activity Detection
+        </h3>
+
+        <div class="detection-meta">
+          <span class="meta-tag high">T1059.001</span>
+          <span class="meta-tag">Windows + Sysmon</span>
+          <span class="meta-tag high">High</span>
+        </div>
+      </div>
+
+      <div class="detection-section">
+        <h4>Event IDs</h4>
+        <p>4104, 4688</p>
+      </div>
+
+      <div class="detection-section">
+        <h4>Indicators</h4>
+        <p>Encoded / hidden PowerShell flags</p>
+      </div>
+
+      <div class="detection-section">
+        <h4>Detection Logic</h4>
+        <p>
+          Detect encoded or obfuscated PowerShell execution patterns.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="detection-right">
+
+      <div class="detection-impact">
+        <h4>Why it matters</h4>
+        <p>
+          Common technique used in fileless malware and post-exploitation.
+        </p>
+      </div>
+
+      <div class="detection-section">
+        <h4>My Contributions</h4>
+
+        <ul class="contrib-list">
+          <li>Filtered benign administrative scripts</li>
+          <li>Focused on encoded and obfuscated commands</li>
+          <li>Reduced noise from automation tasks</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Detection 5 -->
+  <div class="detection-card">
+
+    <div class="detection-left">
+
+      <div>
+        <h3 class="detection-title">
+          Security Log Clearing Detection
+        </h3>
+
+        <div class="detection-meta">
+          <span class="meta-tag high">T1070.001</span>
+          <span class="meta-tag">Windows Security</span>
+          <span class="meta-tag high">High</span>
+        </div>
+      </div>
+
+      <div class="detection-section">
+        <h4>Event ID</h4>
+        <p>1102</p>
+      </div>
+
+      <div class="detection-section">
+        <h4>Detection Logic</h4>
+        <p>
+          Alert when Windows Security logs are cleared.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="detection-right">
+
+      <div class="detection-impact">
+        <h4>Why it matters</h4>
+        <p>
+          Attackers often erase logs to hide malicious activity.
+        </p>
+      </div>
+
+      <div class="detection-section">
+        <h4>My Contributions</h4>
+
+        <ul class="contrib-list">
+          <li>Configured high-severity alerting</li>
+          <li>Correlated with suspicious user activity</li>
+          <li>Reduced false positives from maintenance operations</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Detection 6 -->
+  <div class="detection-card">
+
+    <div class="detection-left">
+
+      <div>
+        <h3 class="detection-title">
+          New Service Installation Detection
+        </h3>
+
+        <div class="detection-meta">
+          <span class="meta-tag medium">T1543</span>
+          <span class="meta-tag">Windows System</span>
+          <span class="meta-tag medium">Medium</span>
+        </div>
+      </div>
+
+      <div class="detection-section">
+        <h4>Event ID</h4>
+        <p>7045</p>
+      </div>
+
+      <div class="detection-section">
+        <h4>Detection Logic</h4>
+        <p>
+          Alert when new services are installed on endpoints.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="detection-right">
+
+      <div class="detection-impact">
+        <h4>Why it matters</h4>
+        <p>
+          Attackers commonly use services for persistence.
+        </p>
+      </div>
+
+      <div class="detection-section">
+        <h4>My Contributions</h4>
+
+        <ul class="contrib-list">
+          <li>Filtered legitimate software deployment services</li>
+          <li>Tuned for uncommon service creation patterns</li>
+          <li>Reduced noise from enterprise management tools</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Detection 7 -->
+  <div class="detection-card">
+
+    <div class="detection-left">
+
+      <div>
+        <h3 class="detection-title">
+          Object Permission Change Detection
+        </h3>
+
+        <div class="detection-meta">
+          <span class="meta-tag medium">T1222</span>
+          <span class="meta-tag">Windows Security</span>
+          <span class="meta-tag medium">Medium</span>
+        </div>
+      </div>
+
+      <div class="detection-section">
+        <h4>Event ID</h4>
+        <p>4670</p>
+      </div>
+
+      <div class="detection-section">
+        <h4>Detection Logic</h4>
+        <p>
+          Alert when permissions on critical objects are modified.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="detection-right">
+
+      <div class="detection-impact">
+        <h4>Why it matters</h4>
+        <p>
+          Attackers may escalate privileges by modifying access controls.
+        </p>
+      </div>
+
+      <div class="detection-section">
+        <h4>My Contributions</h4>
+
+        <ul class="contrib-list">
+          <li>Scoped monitoring to sensitive directories</li>
+          <li>Tuned alerts for privileged object modifications</li>
+          <li>Reduced noise from routine admin operations</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
 </div>
 
 </section>
