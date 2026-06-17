@@ -1,329 +1,666 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CTF Development | Fawaz Hussain</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CTF Challenge Engineering · Fawaz Hussain</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Hamburger */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text-dim);
+      border-radius: 2px;
+      transition: all 0.25s;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    @media (max-width: 600px) {
+      .nav-toggle { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 52px; left: 0; right: 0;
+        background: rgba(13,15,14,0.98);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        padding: 16px 24px;
+        gap: 4px;
+        z-index: 99;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { list-style: none; }
+      .nav-links a {
+        display: block;
+        padding: 10px 0;
+        font-size: 13px;
+        border-bottom: 1px solid var(--border);
+        color: var(--text-dim);
+        text-decoration: none;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .nav-links li:last-child a { border-bottom: none; }
+    }
 
-<link rel="stylesheet" href="styles.css">
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding-top: 20px;
+      margin-bottom: 56px;
+    }
+    .page-hero-prompt {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .page-hero-prompt::before {
+      content: '▶';
+      color: var(--green);
+      font-size: 8px;
+    }
+    .page-hero h1 {
+      font-family: var(--sans);
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 800;
+      color: var(--text-head);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .page-hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+    .page-hero-sub {
+      font-family: var(--body);
+      font-size: 14px;
+      color: var(--text-dim);
+      max-width: 560px;
+      line-height: 1.85;
+      margin-bottom: 24px;
+    }
+    .confidential-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      background: rgba(184,150,12,0.06);
+      border: 1px solid rgba(184,150,12,0.2);
+      padding: 8px 14px;
+      border-radius: 2px;
+    }
+    .confidential-note::before { content: '⚠'; }
+
+    /* ── STATS ── */
+    .ctf-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 72px;
+    }
+    .ctf-stat {
+      background: var(--surface);
+      padding: 20px;
+      text-align: center;
+    }
+    .ctf-stat-num {
+      font-family: var(--sans);
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--accent);
+      display: block;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .ctf-stat-label {
+      font-family: var(--body);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+    }
+
+    /* ── CHALLENGE CARDS ── */
+    .chall-list {
+      display: grid;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .chall-card {
+      background: var(--surface);
+      padding: 24px;
+      transition: background 0.2s;
+    }
+    .chall-card:hover { background: var(--surface2); }
+
+    .chall-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .chall-id {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+      margin-bottom: 6px;
+    }
+    .chall-name {
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-head);
+    }
+    .chall-badges {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+    .badge {
+      font-family: var(--body);
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+    .badge-cat {
+      background: rgba(184,150,12,0.08);
+      color: var(--accent);
+      border: 1px solid rgba(184,150,12,0.2);
+    }
+    .badge-easy   { background: rgba(76,175,120,0.08); color: var(--green); border: 1px solid rgba(76,175,120,0.15); }
+    .badge-medium { background: rgba(184,150,12,0.08); color: var(--accent); border: 1px solid rgba(184,150,12,0.2); }
+    .badge-hard   { background: rgba(192,57,43,0.08); color: #e07060; border: 1px solid rgba(192,57,43,0.2); }
+
+    .chall-desc {
+      font-family: var(--body);
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.8;
+      margin-bottom: 14px;
+      max-width: 680px;
+    }
+    .chall-techniques {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .tech-tag {
+      font-family: var(--body);
+      font-size: 11px;
+      padding: 2px 8px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      border-radius: 2px;
+    }
+
+    /* ── DOMAIN OVERVIEW ── */
+    .domain-overview {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .domain-tile {
+      background: var(--surface);
+      padding: 20px;
+      transition: background 0.2s;
+    }
+    .domain-tile:hover { background: var(--surface2); }
+    .domain-tile-name {
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-head);
+      margin-bottom: 6px;
+    }
+    .domain-tile-count {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .domain-tile-desc {
+      font-family: var(--body);
+      font-size: 12px;
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+
+    /* ── DESIGN PROCESS ── */
+    .process-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .process-item {
+      background: var(--surface);
+      padding: 20px 22px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .process-num {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .process-title {
+      font-family: var(--body);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-head);
+      margin-bottom: 4px;
+    }
+    .process-desc {
+      font-family: var(--body);
+      font-size: 12px;
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+  </style>
 </head>
-
 <body>
 
 <nav>
   <a class="nav-brand" href="index.html">FH<span>.</span></a>
-
-  <ul class="nav-links">
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html">Home</a></li>
     <li><a href="projects.html">Projects</a></li>
     <li><a href="ctfs.html">CTFs</a></li>
     <li><a href="detections.html">Detections</a></li>
     <li><a href="blog.html">Log</a></li>
   </ul>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <main>
 
-<section>
-
-<div class="section-label">
-<h2>CTF DEVELOPMENT</h2>
-</div>
-
-<p class="ctf-intro">
-Due to confidentiality requirements, challenge content is generalized and represents the knowledge domains, tooling, and engineering approaches used while designing Capture The Flag exercises for cybersecurity training and assessment.
-</p>
-
-</section>
-
-<section>
-
-<div class="ctf-terminal">
-
-<div class="ctf-terminal-header">
-challenge-designer@cyberheals:~$
-</div>
-
-<div class="ctf-terminal-body">
-
-<div class="domain-grid">
-
-<div class="domain-card active">
-DFIR
-<span>Incident Response & Investigation</span>
-</div>
-
-<div class="domain-card">
-Malware Analysis
-<span>Static & Dynamic Analysis</span>
-</div>
-
-<div class="domain-card">
-Network Forensics
-<span>Packet & Traffic Analysis</span>
-</div>
-
-<div class="domain-card">
-Detection Engineering
-<span>Threat Detection Logic</span>
-</div>
-
-<div class="domain-card">
-OSINT
-<span>Open Source Intelligence</span>
-</div>
-
-<div class="domain-card">
-Cryptography
-<span>Classical & Modern Crypto</span>
-</div>
-
-<div class="domain-card">
-Reverse Engineering
-<span>Binary Analysis</span>
-</div>
-
-<div class="domain-card">
-Steganography
-<span>Data Hiding & Recovery</span>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section>
-
-<div class="section-label">
-<h2>DOMAIN COVERAGE</h2>
-</div>
-
-<div class="ctf-grid">
-
-<div class="ctf-card">
-
-<div class="ctf-card-title">
-DFIR Challenges
-</div>
-
-<p>
-Built investigation-focused scenarios involving persistence analysis, timeline reconstruction, log analysis, memory artifacts, attacker tracking, and evidence correlation.
-</p>
-
-<div class="ctf-tags">
-<span>Windows Event Logs</span>
-<span>Persistence</span>
-<span>Timeline Analysis</span>
-<span>Memory Artifacts</span>
-<span>Threat Hunting</span>
-<span>IOC Extraction</span>
-</div>
-
-</div>
-
-<div class="ctf-card">
-
-<div class="ctf-card-title">
-Malware Analysis
-</div>
-
-<p>
-Designed challenges requiring static and dynamic analysis of suspicious binaries, behavioral analysis, YARA matching, and artifact extraction.
-</p>
-
-<div class="ctf-tags">
-<span>PEStudio</span>
-<span>Procmon</span>
-<span>YARA</span>
-<span>Strings</span>
-<span>Registry</span>
-<span>Behavior Analysis</span>
-</div>
-
-</div>
-
-<div class="ctf-card">
-
-<div class="ctf-card-title">
-Network Forensics
-</div>
-
-<p>
-Created packet analysis exercises requiring identification of attacker activity, protocol abuse, exfiltration paths, and credential disclosure.
-</p>
-
-<div class="ctf-tags">
-<span>Wireshark</span>
-<span>PCAP Analysis</span>
-<span>HTTP</span>
-<span>DNS</span>
-<span>TCP Streams</span>
-<span>Network IOC</span>
-</div>
-
-</div>
-
-<div class="ctf-card">
-
-<div class="ctf-card-title">
-Detection Engineering
-</div>
-
-<p>
-Developed detection-focused scenarios around Windows Event IDs, Sigma concepts, attack behaviors, and alert engineering.
-</p>
-
-<div class="ctf-tags">
-<span>MITRE ATT&CK</span>
-<span>Sigma</span>
-<span>Event IDs</span>
-<span>Log360</span>
-<span>SIEM</span>
-<span>Correlation</span>
-</div>
-
-</div>
-
-<div class="ctf-card">
-
-<div class="ctf-card-title">
-OSINT
-</div>
-
-<p>
-Created investigative tasks requiring open-source intelligence gathering, metadata analysis, and attribution techniques.
-</p>
-
-<div class="ctf-tags">
-<span>Reconnaissance</span>
-<span>Metadata</span>
-<span>Attribution</span>
-<span>Social Intelligence</span>
-</div>
-
-</div>
-
-<div class="ctf-card">
-
-<div class="ctf-card-title">
-Cryptography
-</div>
-
-<p>
-Designed encryption and encoding challenges requiring analytical problem solving and implementation knowledge.
-</p>
-
-<div class="ctf-tags">
-<span>AES</span>
-<span>RSA</span>
-<span>Hashes</span>
-<span>Encodings</span>
-<span>Frequency Analysis</span>
-</div>
-
-</div>
-
-<div class="ctf-card">
-
-<div class="ctf-card-title">
-Reverse Engineering
-</div>
-
-<p>
-Built binary analysis exercises requiring disassembly review, logic extraction, and execution tracing.
-</p>
-
-<div class="ctf-tags">
-<span>Assembly</span>
-<span>Ghidra</span>
-<span>x64dbg</span>
-<span>Logic Analysis</span>
-</div>
-
-</div>
-
-<div class="ctf-card">
-
-<div class="ctf-card-title">
-Steganography
-</div>
-
-<p>
-Created hidden-data discovery challenges using file structure analysis and artifact extraction techniques.
-</p>
-
-<div class="ctf-tags">
-<span>Metadata</span>
-<span>Image Analysis</span>
-<span>Data Carving</span>
-<span>File Structures</span>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section>
-
-<div class="section-label">
-<h2>CHALLENGE DESIGN RESPONSIBILITIES</h2>
-</div>
-
-<div class="ctf-responsibilities">
-
-<div>✓ Scenario Design & Story Creation</div>
-<div>✓ Flag Logic Engineering</div>
-<div>✓ Difficulty Balancing</div>
-<div>✓ Hint System Design</div>
-<div>✓ Validation Testing</div>
-<div>✓ Infrastructure Deployment</div>
-<div>✓ Writeup Creation</div>
-<div>✓ ATT&CK Mapping</div>
-
-</div>
-
-</section>
-
-<section>
-
-<div class="section-label">
-<h2>SKILLS DEMONSTRATED</h2>
-</div>
-
-<div class="skills-banner">
-
-<span>DFIR</span>
-<span>Threat Hunting</span>
-<span>Detection Engineering</span>
-<span>Malware Analysis</span>
-<span>SIEM</span>
-<span>MITRE ATT&CK</span>
-<span>YARA</span>
-<span>Windows Internals</span>
-<span>Network Forensics</span>
-<span>OSINT</span>
-<span>Cryptography</span>
-<span>Reverse Engineering</span>
-
-</div>
-
-</section>
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-prompt">challenge-designer@cyberheals:~$ ls ./labs/</div>
+    <h1>CTF Challenge<br><em>Engineering</em></h1>
+    <p class="page-hero-sub">
+      Designed and deployed 57+ Capture The Flag challenges at Cyber Heals,
+      spanning blue team, forensics, cryptography, OSINT, and SOC operations.
+      Built for analyst upskilling and structured cybersecurity training across
+      multiple cohorts.
+    </p>
+    <span class="confidential-note">Challenge content is generalized — flags, files, and infrastructure are not disclosed.</span>
+  </section>
+
+  <!-- STATS -->
+  <div class="ctf-stats">
+    <div class="ctf-stat">
+      <span class="ctf-stat-num">57+</span>
+      <span class="ctf-stat-label">Challenges Built</span>
+    </div>
+    <div class="ctf-stat">
+      <span class="ctf-stat-num">41</span>
+      <span class="ctf-stat-label">Completed & Deployed</span>
+    </div>
+    <div class="ctf-stat">
+      <span class="ctf-stat-num">8</span>
+      <span class="ctf-stat-label">Domains Covered</span>
+    </div>
+    <div class="ctf-stat">
+      <span class="ctf-stat-num">3</span>
+      <span class="ctf-stat-label">Difficulty Tiers</span>
+    </div>
+    <div class="ctf-stat">
+      <span class="ctf-stat-num">MITRE</span>
+      <span class="ctf-stat-label">ATT&CK Mapped</span>
+    </div>
+  </div>
+
+  <!-- SHOWCASE CHALLENGES -->
+  <section>
+    <div class="section-label"><h2>Showcase Challenges</h2></div>
+    <div class="chall-list">
+
+      <!-- SOC: Shadow Ledger -->
+      <div class="chall-card">
+        <div class="chall-header">
+          <div>
+            <div class="chall-id">SOC-001 · Hard</div>
+            <div class="chall-name">Shadow Ledger</div>
+          </div>
+          <div class="chall-badges">
+            <span class="badge badge-cat">SOC</span>
+            <span class="badge badge-hard">Hard</span>
+          </div>
+        </div>
+        <p class="chall-desc">
+          An emerging threat has left a trail across multiple systems. Participants are given intercepted emails, network traffic captures, and system logs hinting at an ongoing attack on a financial network. The challenge requires correlating email attachments, PCAP data, system logs, ATM records, and blockchain transactions to trace C2 communication to an ATM cash dispense event.
+        </p>
+        <div class="chall-techniques">
+          <span class="tech-tag">Log Correlation</span>
+          <span class="tech-tag">PCAP Analysis</span>
+          <span class="tech-tag">C2 Detection</span>
+          <span class="tech-tag">Threat Intelligence</span>
+          <span class="tech-tag">Multi-artifact Investigation</span>
+        </div>
+      </div>
+
+      <!-- SOC: Valora Retail -->
+      <div class="chall-card">
+        <div class="chall-header">
+          <div>
+            <div class="chall-id">SOC-002 · Hard</div>
+            <div class="chall-name">Valora Retail</div>
+          </div>
+          <div class="chall-badges">
+            <span class="badge badge-cat">SOC</span>
+            <span class="badge badge-hard">Hard</span>
+          </div>
+        </div>
+        <p class="chall-desc">
+          A mid-sized e-commerce company detects signs of a network breach with a 10-minute response window. Participants pivot from an anomalous SMB session in network logs to uncover an accessed share, decode a loader payload from event logs, identify a rogue Active Directory account, terminate its malicious process, and block the C2 IP — simulating a real-time SOC containment scenario.
+        </p>
+        <div class="chall-techniques">
+          <span class="tech-tag">SMB Analysis</span>
+          <span class="tech-tag">Event Log Investigation</span>
+          <span class="tech-tag">Active Directory</span>
+          <span class="tech-tag">C2 Blocking</span>
+          <span class="tech-tag">T1078 · Valid Accounts</span>
+        </div>
+      </div>
+
+      <!-- SOC: True Positive -->
+      <div class="chall-card">
+        <div class="chall-header">
+          <div>
+            <div class="chall-id">SOC-003 · Intermediate</div>
+            <div class="chall-name">True Positive</div>
+          </div>
+          <div class="chall-badges">
+            <span class="badge badge-cat">SOC</span>
+            <span class="badge badge-medium">Intermediate</span>
+          </div>
+        </div>
+        <p class="chall-desc">
+          A SIEM flooded with a week of logs — routine events, device heartbeats, and one malicious payload execution hidden in the noise. Participants must filter by Event ID, source prefix, and severity to reduce the haystack to a single true positive, simulating real-world alert triage under volume pressure.
+        </p>
+        <div class="chall-techniques">
+          <span class="tech-tag">SIEM Triage</span>
+          <span class="tech-tag">EventID 4688</span>
+          <span class="tech-tag">Sysmon ID 1</span>
+          <span class="tech-tag">Alert Filtering</span>
+          <span class="tech-tag">T1059 · Command Execution</span>
+        </div>
+      </div>
+
+      <!-- FORENSICS: DocXploit -->
+      <div class="chall-card">
+        <div class="chall-header">
+          <div>
+            <div class="chall-id">FOR-001 · Hard</div>
+            <div class="chall-name">DocXploit</div>
+          </div>
+          <div class="chall-badges">
+            <span class="badge badge-cat">Forensics</span>
+            <span class="badge badge-hard">Hard</span>
+          </div>
+        </div>
+        <p class="chall-desc">
+          A spear-phishing campaign dropped two Office documents containing hidden IOCs. Built using real malware samples (static analysis only, sandboxed environment required). Participants unzip each .docx, extract an embedded IPv4 address from one document and a hidden domain from the other — simulating real malware document triage without execution.
+        </p>
+        <div class="chall-techniques">
+          <span class="tech-tag">Malware Document Analysis</span>
+          <span class="tech-tag">IOC Extraction</span>
+          <span class="tech-tag">T1566.001 · Spear Phishing</span>
+          <span class="tech-tag">Static Analysis</span>
+          <span class="tech-tag">zipdump.py</span>
+        </div>
+      </div>
+
+      <!-- FORENSICS: Invoice of Deceit -->
+      <div class="chall-card">
+        <div class="chall-header">
+          <div>
+            <div class="chall-id">FOR-002 · Intermediate</div>
+            <div class="chall-name">Invoice of Deceit</div>
+          </div>
+          <div class="chall-badges">
+            <span class="badge badge-cat">Forensics</span>
+            <span class="badge badge-medium">Intermediate</span>
+          </div>
+        </div>
+        <p class="chall-desc">
+          A victim's system behaves abnormally after downloading a PDF email attachment. Participants analyze the PDF to discover an obfuscated JavaScript payload embedded in a hidden annotation — simulating PDF-based malware delivery. The payload must be extracted, decoded, and the embedded flag reconstructed from Base64.
+        </p>
+        <div class="chall-techniques">
+          <span class="tech-tag">PDF Forensics</span>
+          <span class="tech-tag">JavaScript Obfuscation</span>
+          <span class="tech-tag">T1566.001 · Phishing</span>
+          <span class="tech-tag">Base64 Decoding</span>
+          <span class="tech-tag">Hidden Annotation Analysis</span>
+        </div>
+      </div>
+
+      <!-- FORENSICS: Signature Required (YARA) -->
+      <div class="chall-card">
+        <div class="chall-header">
+          <div>
+            <div class="chall-id">FOR-003 · Easy</div>
+            <div class="chall-name">Signature Required</div>
+          </div>
+          <div class="chall-badges">
+            <span class="badge badge-cat">Detection Engineering</span>
+            <span class="badge badge-easy">Easy</span>
+          </div>
+        </div>
+        <p class="chall-desc">
+          A suspicious binary intercept contains a unique IOC. Participants must write a syntactically correct YARA rule that specifically matches the malware sample by identifying the exact C2 server string embedded in the binary — reinforcing detection engineering fundamentals through hands-on rule crafting.
+        </p>
+        <div class="chall-techniques">
+          <span class="tech-tag">YARA Rule Writing</span>
+          <span class="tech-tag">C2 String Detection</span>
+          <span class="tech-tag">T1071 · C2 Communication</span>
+          <span class="tech-tag">Detection Engineering</span>
+        </div>
+      </div>
+
+      <!-- OSINT: Spectre -->
+      <div class="chall-card">
+        <div class="chall-header">
+          <div>
+            <div class="chall-id">OSINT-001 · Intermediate</div>
+            <div class="chall-name">Spectre</div>
+          </div>
+          <div class="chall-badges">
+            <span class="badge badge-cat">OSINT</span>
+            <span class="badge badge-medium">Intermediate</span>
+          </div>
+        </div>
+        <p class="chall-desc">
+          A threat actor known as "Spectre" embeds puzzles in phishing emails. Participants analyze email headers to trace the malicious sender, extract a hidden Instagram handle from header data, reconstruct a fragmented image puzzle, and reverse-search the photo to uncover the actor's real identity — blending technical and OSINT tradecraft.
+        </p>
+        <div class="chall-techniques">
+          <span class="tech-tag">Email Header Analysis</span>
+          <span class="tech-tag">Reverse Image Search</span>
+          <span class="tech-tag">OSINT Attribution</span>
+          <span class="tech-tag">T1598 · Phishing for Info</span>
+          <span class="tech-tag">Metadata Extraction</span>
+        </div>
+      </div>
+
+      <!-- CRYPTO: Digital Pirate -->
+      <div class="chall-card">
+        <div class="chall-header">
+          <div>
+            <div class="chall-id">CRYPTO-001 · Hard</div>
+            <div class="chall-name">Digital Pirate</div>
+          </div>
+          <div class="chall-badges">
+            <span class="badge badge-cat">Cryptography</span>
+            <span class="badge badge-hard">Hard</span>
+          </div>
+        </div>
+        <p class="chall-desc">
+          A file of user account records with salted password hashes where the salt is dynamically generated from a predictable everyday source. Participants generate 12 salted hash files (one per month), crack accounts using a dictionary, identify an unsolvable account, and pivot to rockyou.txt to extract the flag — testing real-world credential analysis methodology.
+        </p>
+        <div class="chall-techniques">
+          <span class="tech-tag">Password Cracking</span>
+          <span class="tech-tag">Salt Analysis</span>
+          <span class="tech-tag">Hash Identification</span>
+          <span class="tech-tag">Wordlist Attack</span>
+          <span class="tech-tag">T1110 · Brute Force</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DOMAIN OVERVIEW -->
+  <section>
+    <div class="section-label"><h2>Domain Coverage</h2></div>
+    <div class="domain-overview">
+      <div class="domain-tile">
+        <div class="domain-tile-name">Forensics</div>
+        <div class="domain-tile-count">18 challenges</div>
+        <div class="domain-tile-desc">PCAP analysis, disk imaging, memory forensics, PDF/Office malware, steganography, file carving, Sleuth Kit.</div>
+      </div>
+      <div class="domain-tile">
+        <div class="domain-tile-name">Cryptography</div>
+        <div class="domain-tile-count">10 challenges</div>
+        <div class="domain-tile-desc">RSA, AES, XOR, classical ciphers (Caesar, Vigenère, Bacon), hash cracking, encoding layers.</div>
+      </div>
+      <div class="domain-tile">
+        <div class="domain-tile-name">SOC / Blue Team</div>
+        <div class="domain-tile-count">5 challenges</div>
+        <div class="domain-tile-desc">SIEM triage, log correlation, RDP brute force detection, insider threat investigation, C2 tracing.</div>
+      </div>
+      <div class="domain-tile">
+        <div class="domain-tile-name">OSINT</div>
+        <div class="domain-tile-count">5 challenges</div>
+        <div class="domain-tile-desc">Image geolocation, metadata extraction, reverse search, archived page recovery, attribution.</div>
+      </div>
+      <div class="domain-tile">
+        <div class="domain-tile-name">Detection Engineering</div>
+        <div class="domain-tile-count">3 challenges</div>
+        <div class="domain-tile-desc">YARA rule writing, Sigma concept application, malware signature identification, C2 detection logic.</div>
+      </div>
+      <div class="domain-tile">
+        <div class="domain-tile-name">Misc / Steganography</div>
+        <div class="domain-tile-count">3 challenges</div>
+        <div class="domain-tile-desc">LSB extraction, spectrogram analysis, Unicode zero-width character encoding, bytecode analysis.</div>
+      </div>
+      <div class="domain-tile">
+        <div class="domain-tile-name">Reverse Engineering</div>
+        <div class="domain-tile-count">Exam track</div>
+        <div class="domain-tile-desc">Binary analysis, disassembly review, logic extraction, Ghidra, x64dbg, execution tracing.</div>
+      </div>
+      <div class="domain-tile">
+        <div class="domain-tile-name">Memory Forensics</div>
+        <div class="domain-tile-count">Exam track</div>
+        <div class="domain-tile-desc">Volatility-based analysis, process injection, environment variable extraction, staged payload recovery.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESIGN PROCESS -->
+  <section>
+    <div class="section-label"><h2>Design Process</h2></div>
+    <div class="process-list">
+      <div class="process-item">
+        <span class="process-num">01</span>
+        <div>
+          <div class="process-title">Threat Scenario Modelling</div>
+          <div class="process-desc">Each challenge begins with a real-world attack technique or investigation scenario mapped to MITRE ATT&CK.</div>
+        </div>
+      </div>
+      <div class="process-item">
+        <span class="process-num">02</span>
+        <div>
+          <div class="process-title">Artifact Engineering</div>
+          <div class="process-desc">Building challenge files — PCAPs, disk images, PDFs, binaries — with embedded flags and deliberate forensic trails.</div>
+        </div>
+      </div>
+      <div class="process-item">
+        <span class="process-num">03</span>
+        <div>
+          <div class="process-title">Difficulty Calibration</div>
+          <div class="process-desc">Testing solve paths, setting hint tiers, and balancing challenge depth against intended skill level.</div>
+        </div>
+      </div>
+      <div class="process-item">
+        <span class="process-num">04</span>
+        <div>
+          <div class="process-title">Writeup & Documentation</div>
+          <div class="process-desc">Every deployed challenge includes a solution writeup for post-event learning and analyst debriefing.</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
 </main>
 
 <footer>
-<span class="footer-left">
-Fawaz Hussain <span>·</span> Detection Engineer & DFIR
-</span>
+  <span class="footer-left">Fawaz Hussain <span>·</span> Detection Engineer & DFIR Analyst</span>
+  <span class="footer-right">Madurai, India · Open to Relocation</span>
 </footer>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const navLinks = document.getElementById('nav-links');
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      toggle.classList.remove('open');
+      navLinks.classList.remove('open');
+    });
+  });
+</script>
 
 </body>
 </html>
