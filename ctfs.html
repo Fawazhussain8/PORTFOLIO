@@ -12,16 +12,12 @@
 
 <nav>
   <a class="nav-brand" href="index.html">FH<span>.</span></a>
-  <ul class="nav-links" id="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="projects.html">Projects</a></li>
-    <li><a href="ctfs.html">CTFs</a></li>
-    <li><a href="detections.html">Detections</a></li>
-    <li><a href="blog.html">Log</a></li>
+  <ul class="nav-links">
+      <li><a href="blog.html">Log</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="ctfs.html">CTF Designs</a></li>
+      <li><a href="detections.html">Detections</a></li>
   </ul>
-  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
-    <span></span><span></span><span></span>
-  </button>
 </nav>
 
 <main>
@@ -31,250 +27,34 @@
     <h2>CTF Challenge Engineering</h2>
   </div>
 
-  <p class="detection-note">
-    Designed and deployed 57+ Capture The Flag challenges at Cyber Heals,
-    spanning blue team, forensics, cryptography, OSINT, and SOC operations.
-
-    Due to confidentiality reasons, challenge descriptions are generalized
-    representations of real-world implementations.
+  <p class="page-intro">
+  Challenge development portfolio covering DFIR, SOC Operations,
+  Detection Engineering, Cryptography, OSINT, Malware Analysis,
+  Reverse Engineering and Blue Team investigations.
   </p>
-</section>
-<section>
+  </section>
+
 
 <div class="projects-grid">
 
   <div class="project-card">
 
-    <div class="project-id">
-      CTF PROGRAM OVERVIEW
-    </div>
-
     <div class="project-title">
-      Capture The Flag Development
-    </div>
-
-    <div class="project-desc">
-      Designed and maintained 57+ cybersecurity challenges spanning DFIR,
-      Malware Analysis, Cryptography, OSINT, Detection Engineering,
-      Reverse Engineering, Memory Forensics and SOC Operations.
-
-      Challenges were developed for analyst upskilling, technical
-      assessments and hands-on cybersecurity training.
+      CTF Challenge Development
     </div>
 
     <div class="project-tags">
-      <span class="ptag ptag-tool">57+ Challenges</span>
-      <span class="ptag ptag-tool">41 Deployed</span>
+      <span class="ptag ptag-tool">110+ Challenges Developed</span>
       <span class="ptag ptag-tool">8 Domains</span>
       <span class="ptag ptag-tool">3 Difficulty Tiers</span>
-      <span class="ptag ptag-mitre">MITRE ATT&CK</span>
+      <span class="ptag ptag-framework">MITRE ATT&CK</span>
     </div>
 
   </div>
 
 </div>
 
-</section>
-  <!-- SHOWCASE CHALLENGES -->
-  <section>
-    <div class="section-label"><h2>Showcase Challenges</h2></div>
-    <div class="chall-list">
-
-      <!-- SOC: Shadow Ledger -->
-      <div class="chall-card">
-        <div class="chall-header">
-          <div>
-            <div class="chall-id">SOC-001 · Hard</div>
-            <div class="chall-name">Shadow Ledger</div>
-          </div>
-          <div class="chall-badges">
-            <span class="badge badge-cat">SOC</span>
-            <span class="badge badge-hard">Hard</span>
-          </div>
-        </div>
-        <p class="chall-desc">
-          An emerging threat has left a trail across multiple systems. Participants are given intercepted emails, network traffic captures, and system logs hinting at an ongoing attack on a financial network. The challenge requires correlating email attachments, PCAP data, system logs, ATM records, and blockchain transactions to trace C2 communication to an ATM cash dispense event.
-        </p>
-        <div class="chall-techniques">
-          <span class="tech-tag">Log Correlation</span>
-          <span class="tech-tag">PCAP Analysis</span>
-          <span class="tech-tag">C2 Detection</span>
-          <span class="tech-tag">Threat Intelligence</span>
-          <span class="tech-tag">Multi-artifact Investigation</span>
-        </div>
-      </div>
-
-      <!-- SOC: Valora Retail -->
-      <div class="chall-card">
-        <div class="chall-header">
-          <div>
-            <div class="chall-id">SOC-002 · Hard</div>
-            <div class="chall-name">Valora Retail</div>
-          </div>
-          <div class="chall-badges">
-            <span class="badge badge-cat">SOC</span>
-            <span class="badge badge-hard">Hard</span>
-          </div>
-        </div>
-        <p class="chall-desc">
-          A mid-sized e-commerce company detects signs of a network breach with a 10-minute response window. Participants pivot from an anomalous SMB session in network logs to uncover an accessed share, decode a loader payload from event logs, identify a rogue Active Directory account, terminate its malicious process, and block the C2 IP — simulating a real-time SOC containment scenario.
-        </p>
-        <div class="chall-techniques">
-          <span class="tech-tag">SMB Analysis</span>
-          <span class="tech-tag">Event Log Investigation</span>
-          <span class="tech-tag">Active Directory</span>
-          <span class="tech-tag">C2 Blocking</span>
-          <span class="tech-tag">T1078 · Valid Accounts</span>
-        </div>
-      </div>
-
-      <!-- SOC: True Positive -->
-      <div class="chall-card">
-        <div class="chall-header">
-          <div>
-            <div class="chall-id">SOC-003 · Intermediate</div>
-            <div class="chall-name">True Positive</div>
-          </div>
-          <div class="chall-badges">
-            <span class="badge badge-cat">SOC</span>
-            <span class="badge badge-medium">Intermediate</span>
-          </div>
-        </div>
-        <p class="chall-desc">
-          A SIEM flooded with a week of logs — routine events, device heartbeats, and one malicious payload execution hidden in the noise. Participants must filter by Event ID, source prefix, and severity to reduce the haystack to a single true positive, simulating real-world alert triage under volume pressure.
-        </p>
-        <div class="chall-techniques">
-          <span class="tech-tag">SIEM Triage</span>
-          <span class="tech-tag">EventID 4688</span>
-          <span class="tech-tag">Sysmon ID 1</span>
-          <span class="tech-tag">Alert Filtering</span>
-          <span class="tech-tag">T1059 · Command Execution</span>
-        </div>
-      </div>
-
-      <!-- FORENSICS: DocXploit -->
-      <div class="chall-card">
-        <div class="chall-header">
-          <div>
-            <div class="chall-id">FOR-001 · Hard</div>
-            <div class="chall-name">DocXploit</div>
-          </div>
-          <div class="chall-badges">
-            <span class="badge badge-cat">Forensics</span>
-            <span class="badge badge-hard">Hard</span>
-          </div>
-        </div>
-        <p class="chall-desc">
-          A spear-phishing campaign dropped two Office documents containing hidden IOCs. Built using real malware samples (static analysis only, sandboxed environment required). Participants unzip each .docx, extract an embedded IPv4 address from one document and a hidden domain from the other — simulating real malware document triage without execution.
-        </p>
-        <div class="chall-techniques">
-          <span class="tech-tag">Malware Document Analysis</span>
-          <span class="tech-tag">IOC Extraction</span>
-          <span class="tech-tag">T1566.001 · Spear Phishing</span>
-          <span class="tech-tag">Static Analysis</span>
-          <span class="tech-tag">zipdump.py</span>
-        </div>
-      </div>
-
-      <!-- FORENSICS: Invoice of Deceit -->
-      <div class="chall-card">
-        <div class="chall-header">
-          <div>
-            <div class="chall-id">FOR-002 · Intermediate</div>
-            <div class="chall-name">Invoice of Deceit</div>
-          </div>
-          <div class="chall-badges">
-            <span class="badge badge-cat">Forensics</span>
-            <span class="badge badge-medium">Intermediate</span>
-          </div>
-        </div>
-        <p class="chall-desc">
-          A victim's system behaves abnormally after downloading a PDF email attachment. Participants analyze the PDF to discover an obfuscated JavaScript payload embedded in a hidden annotation — simulating PDF-based malware delivery. The payload must be extracted, decoded, and the embedded flag reconstructed from Base64.
-        </p>
-        <div class="chall-techniques">
-          <span class="tech-tag">PDF Forensics</span>
-          <span class="tech-tag">JavaScript Obfuscation</span>
-          <span class="tech-tag">T1566.001 · Phishing</span>
-          <span class="tech-tag">Base64 Decoding</span>
-          <span class="tech-tag">Hidden Annotation Analysis</span>
-        </div>
-      </div>
-
-      <!-- FORENSICS: Signature Required (YARA) -->
-      <div class="chall-card">
-        <div class="chall-header">
-          <div>
-            <div class="chall-id">FOR-003 · Easy</div>
-            <div class="chall-name">Signature Required</div>
-          </div>
-          <div class="chall-badges">
-            <span class="badge badge-cat">Detection Engineering</span>
-            <span class="badge badge-easy">Easy</span>
-          </div>
-        </div>
-        <p class="chall-desc">
-          A suspicious binary intercept contains a unique IOC. Participants must write a syntactically correct YARA rule that specifically matches the malware sample by identifying the exact C2 server string embedded in the binary — reinforcing detection engineering fundamentals through hands-on rule crafting.
-        </p>
-        <div class="chall-techniques">
-          <span class="tech-tag">YARA Rule Writing</span>
-          <span class="tech-tag">C2 String Detection</span>
-          <span class="tech-tag">T1071 · C2 Communication</span>
-          <span class="tech-tag">Detection Engineering</span>
-        </div>
-      </div>
-
-      <!-- OSINT: Spectre -->
-      <div class="chall-card">
-        <div class="chall-header">
-          <div>
-            <div class="chall-id">OSINT-001 · Intermediate</div>
-            <div class="chall-name">Spectre</div>
-          </div>
-          <div class="chall-badges">
-            <span class="badge badge-cat">OSINT</span>
-            <span class="badge badge-medium">Intermediate</span>
-          </div>
-        </div>
-        <p class="chall-desc">
-          A threat actor known as "Spectre" embeds puzzles in phishing emails. Participants analyze email headers to trace the malicious sender, extract a hidden Instagram handle from header data, reconstruct a fragmented image puzzle, and reverse-search the photo to uncover the actor's real identity — blending technical and OSINT tradecraft.
-        </p>
-        <div class="chall-techniques">
-          <span class="tech-tag">Email Header Analysis</span>
-          <span class="tech-tag">Reverse Image Search</span>
-          <span class="tech-tag">OSINT Attribution</span>
-          <span class="tech-tag">T1598 · Phishing for Info</span>
-          <span class="tech-tag">Metadata Extraction</span>
-        </div>
-      </div>
-
-      <!-- CRYPTO: Digital Pirate -->
-      <div class="chall-card">
-        <div class="chall-header">
-          <div>
-            <div class="chall-id">CRYPTO-001 · Hard</div>
-            <div class="chall-name">Digital Pirate</div>
-          </div>
-          <div class="chall-badges">
-            <span class="badge badge-cat">Cryptography</span>
-            <span class="badge badge-hard">Hard</span>
-          </div>
-        </div>
-        <p class="chall-desc">
-          A file of user account records with salted password hashes where the salt is dynamically generated from a predictable everyday source. Participants generate 12 salted hash files (one per month), crack accounts using a dictionary, identify an unsolvable account, and pivot to rockyou.txt to extract the flag — testing real-world credential analysis methodology.
-        </p>
-        <div class="chall-techniques">
-          <span class="tech-tag">Password Cracking</span>
-          <span class="tech-tag">Salt Analysis</span>
-          <span class="tech-tag">Hash Identification</span>
-          <span class="tech-tag">Wordlist Attack</span>
-          <span class="tech-tag">T1110 · Brute Force</span>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- DOMAIN OVERVIEW -->
+    <!-- DOMAIN OVERVIEW -->
   <section>
     <div class="section-label"><h2>Domain Coverage</h2></div>
     <div class="domain-overview">
@@ -321,6 +101,198 @@
     </div>
   </section>
 
+
+  <!-- SHOWCASE CHALLENGES -->
+  <section>
+    <div class="section-label"><h2>Showcase Challenges</h2></div>
+    <div class="chall-list">
+
+      <!-- SOC: Shadow Ledger -->
+      <div class="chall-card">
+        <div class="chall-header">
+          <div>
+            <div class="chall-id">SOC-001 · Hard</div>
+            <div class="chall-name">Shadow Ledger</div>
+          </div>
+          <div class="chall-badges">
+            <span class="badge badge-cat">SOC</span>
+          </div>
+        </div>
+        <p class="chall-desc">
+          An emerging threat has left a trail across multiple systems. Participants are given intercepted emails, network traffic captures, and system logs hinting at an ongoing attack on a financial network. The challenge requires correlating email attachments, PCAP data, system logs, ATM records, and blockchain transactions to trace C2 communication to an ATM cash dispense event.
+        </p>
+        <div class="chall-techniques">
+          <span class="tech-tag">Log Correlation</span>
+          <span class="tech-tag">PCAP Analysis</span>
+          <span class="tech-tag">C2 Detection</span>
+          <span class="tech-tag">Threat Intelligence</span>
+          <span class="tech-tag">Multi-artifact Investigation</span>
+        </div>
+      </div>
+
+      <!-- SOC: Valora Retail -->
+      <div class="chall-card">
+        <div class="chall-header">
+          <div>
+            <div class="chall-id">SOC-002 · Hard</div>
+            <div class="chall-name">Valora Retail</div>
+          </div>
+          <div class="chall-badges">
+            <span class="badge badge-cat">SOC</span>
+          </div>
+        </div>
+        <p class="chall-desc">
+          A mid-sized e-commerce company detects signs of a network breach with a 10-minute response window. Participants pivot from an anomalous SMB session in network logs to uncover an accessed share, decode a loader payload from event logs, identify a rogue Active Directory account, terminate its malicious process, and block the C2 IP — simulating a real-time SOC containment scenario.
+        </p>
+        <div class="chall-techniques">
+          <span class="tech-tag">SMB Analysis</span>
+          <span class="tech-tag">Event Log Investigation</span>
+          <span class="tech-tag">Active Directory</span>
+          <span class="tech-tag">C2 Blocking</span>
+          <span class="tech-tag">T1078 · Valid Accounts</span>
+        </div>
+      </div>
+
+      <!-- SOC: True Positive -->
+      <div class="chall-card">
+        <div class="chall-header">
+          <div>
+            <div class="chall-id">SOC-003 · Intermediate</div>
+            <div class="chall-name">True Positive</div>
+          </div>
+          <div class="chall-badges">
+            <span class="badge badge-cat">SOC</span>
+          </div>
+        </div>
+        <p class="chall-desc">
+          A SIEM flooded with a week of logs — routine events, device heartbeats, and one malicious payload execution hidden in the noise. Participants must filter by Event ID, source prefix, and severity to reduce the haystack to a single true positive, simulating real-world alert triage under volume pressure.
+        </p>
+        <div class="chall-techniques">
+          <span class="tech-tag">SIEM Triage</span>
+          <span class="tech-tag">EventID 4688</span>
+          <span class="tech-tag">Sysmon ID 1</span>
+          <span class="tech-tag">Alert Filtering</span>
+          <span class="tech-tag">T1059 · Command Execution</span>
+        </div>
+      </div>
+
+      <!-- FORENSICS: DocXploit -->
+      <div class="chall-card">
+        <div class="chall-header">
+          <div>
+            <div class="chall-id">FOR-001 · Hard</div>
+            <div class="chall-name">DocXploit</div>
+          </div>
+          <div class="chall-badges">
+            <span class="badge badge-cat">Forensics</span>
+          </div>
+        </div>
+        <p class="chall-desc">
+          A spear-phishing campaign dropped two Office documents containing hidden IOCs. Built using real malware samples (static analysis only, sandboxed environment required). Participants unzip each .docx, extract an embedded IPv4 address from one document and a hidden domain from the other — simulating real malware document triage without execution.
+        </p>
+        <div class="chall-techniques">
+          <span class="tech-tag">Malware Document Analysis</span>
+          <span class="tech-tag">IOC Extraction</span>
+          <span class="tech-tag">T1566.001 · Spear Phishing</span>
+          <span class="tech-tag">Static Analysis</span>
+          <span class="tech-tag">zipdump.py</span>
+        </div>
+      </div>
+
+      <!-- FORENSICS: Invoice of Deceit -->
+      <div class="chall-card">
+        <div class="chall-header">
+          <div>
+            <div class="chall-id">FOR-002 · Intermediate</div>
+            <div class="chall-name">Invoice of Deceit</div>
+          </div>
+          <div class="chall-badges">
+            <span class="badge badge-cat">Forensics</span>
+          </div>
+        </div>
+        <p class="chall-desc">
+          A victim's system behaves abnormally after downloading a PDF email attachment. Participants analyze the PDF to discover an obfuscated JavaScript payload embedded in a hidden annotation — simulating PDF-based malware delivery. The payload must be extracted, decoded, and the embedded flag reconstructed from Base64.
+        </p>
+        <div class="chall-techniques">
+          <span class="tech-tag">PDF Forensics</span>
+          <span class="tech-tag">JavaScript Obfuscation</span>
+          <span class="tech-tag">T1566.001 · Phishing</span>
+          <span class="tech-tag">Base64 Decoding</span>
+          <span class="tech-tag">Hidden Annotation Analysis</span>
+        </div>
+      </div>
+
+      <!-- FORENSICS: Signature Required (YARA) -->
+      <div class="chall-card">
+        <div class="chall-header">
+          <div>
+            <div class="chall-id">FOR-003 · Easy</div>
+            <div class="chall-name">Signature Required</div>
+          </div>
+          <div class="chall-badges">
+            <span class="badge badge-cat">Detection Engineering</span>
+          </div>
+        </div>
+        <p class="chall-desc">
+          A suspicious binary intercept contains a unique IOC. Participants must write a syntactically correct YARA rule that specifically matches the malware sample by identifying the exact C2 server string embedded in the binary — reinforcing detection engineering fundamentals through hands-on rule crafting.
+        </p>
+        <div class="chall-techniques">
+          <span class="tech-tag">YARA Rule Writing</span>
+          <span class="tech-tag">C2 String Detection</span>
+          <span class="tech-tag">T1071 · C2 Communication</span>
+          <span class="tech-tag">Detection Engineering</span>
+        </div>
+      </div>
+
+      <!-- OSINT: Spectre -->
+      <div class="chall-card">
+        <div class="chall-header">
+          <div>
+            <div class="chall-id">OSINT-001 · Intermediate</div>
+            <div class="chall-name">Spectre</div>
+          </div>
+          <div class="chall-badges">
+            <span class="badge badge-cat">OSINT</span>
+          </div>
+        </div>
+        <p class="chall-desc">
+          A threat actor known as "Spectre" embeds puzzles in phishing emails. Participants analyze email headers to trace the malicious sender, extract a hidden Instagram handle from header data, reconstruct a fragmented image puzzle, and reverse-search the photo to uncover the actor's real identity — blending technical and OSINT tradecraft.
+        </p>
+        <div class="chall-techniques">
+          <span class="tech-tag">Email Header Analysis</span>
+          <span class="tech-tag">Reverse Image Search</span>
+          <span class="tech-tag">OSINT Attribution</span>
+          <span class="tech-tag">T1598 · Phishing for Info</span>
+          <span class="tech-tag">Metadata Extraction</span>
+        </div>
+      </div>
+
+      <!-- CRYPTO: Digital Pirate -->
+      <div class="chall-card">
+        <div class="chall-header">
+          <div>
+            <div class="chall-id">CRYPTO-001 · Hard</div>
+            <div class="chall-name">Digital Pirate</div>
+          </div>
+          <div class="chall-badges">
+            <span class="badge badge-cat">Cryptography</span>
+          </div>
+        </div>
+        <p class="chall-desc">
+          A file of user account records with salted password hashes where the salt is dynamically generated from a predictable everyday source. Participants generate 12 salted hash files (one per month), crack accounts using a dictionary, identify an unsolvable account, and pivot to rockyou.txt to extract the flag — testing real-world credential analysis methodology.
+        </p>
+        <div class="chall-techniques">
+          <span class="tech-tag">Password Cracking</span>
+          <span class="tech-tag">Salt Analysis</span>
+          <span class="tech-tag">Hash Identification</span>
+          <span class="tech-tag">Wordlist Attack</span>
+          <span class="tech-tag">T1110 · Brute Force</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- DESIGN PROCESS -->
   <section>
     <div class="section-label"><h2>Design Process</h2></div>
@@ -360,7 +332,7 @@
 
 <footer>
   <span class="footer-left">Fawaz Hussain <span>·</span> Detection Engineer & DFIR Analyst</span>
-  <span class="footer-right">Madurai, India · Open to Relocation</span>
+  <span class="footer-right">Salem, India · Open to Relocation</span>
 </footer>
 
 <script>
