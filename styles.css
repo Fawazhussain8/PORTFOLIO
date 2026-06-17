@@ -845,97 +845,58 @@
       }
     }
 
-/* =====================================================
+/* =========================================
    CTF CHALLENGE ENGINEERING PAGE
-===================================================== */
+========================================= */
 
-/* Mobile Navigation */
-.nav-toggle {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 4px;
-}
-
-.nav-toggle span {
-  display: block;
-  width: 22px;
-  height: 2px;
-  background: var(--text-dim);
-  border-radius: 2px;
-  transition: all 0.25s;
-}
-
-.nav-toggle.open span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-
-.nav-toggle.open span:nth-child(2) {
-  opacity: 0;
-}
-
-.nav-toggle.open span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
-
-/* Challenge Cards */
-.ctf-list {
+.chall-list {
   display: grid;
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  overflow: hidden;
+  gap: 18px;
 }
 
-.ctf-card {
+.chall-card {
   background: var(--surface);
-  padding: 24px;
-  transition: background .2s;
+  border: 1px solid var(--border);
+  padding: 22px;
+  transition: .2s;
 }
 
-.ctf-card:hover {
-  background: var(--surface2);
+.chall-card:hover {
+  border-color: var(--accent);
 }
 
-.ctf-header {
+.chall-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 16px;
+  gap: 12px;
   flex-wrap: wrap;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
 }
 
-.ctf-id {
+.chall-id {
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 11px;
   color: var(--text-dim);
-  letter-spacing: .1em;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
-.ctf-name {
+.chall-name {
   font-family: var(--sans);
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--text-head);
 }
 
-.ctf-badges {
+.chall-badges {
   display: flex;
-  gap: 6px;
   flex-wrap: wrap;
+  gap: 6px;
 }
 
 .badge {
-  font-family: var(--body);
   font-size: 10px;
-  padding: 3px 8px;
+  padding: 4px 8px;
   border-radius: 2px;
 }
 
@@ -963,136 +924,105 @@
   border: 1px solid rgba(192,57,43,.2);
 }
 
-.ctf-desc {
-  font-size: 13px;
+.chall-desc {
   color: var(--text-dim);
-  line-height: 1.8;
-  margin-bottom: 14px;
-  max-width: 700px;
+  line-height: 1.85;
+  margin-bottom: 16px;
 }
 
-.ctf-techniques {
+.chall-techniques {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
 }
 
 .tech-tag {
   font-size: 11px;
-  padding: 2px 8px;
-  background: var(--surface2);
+  padding: 4px 8px;
   border: 1px solid var(--border);
+  background: var(--surface2);
   color: var(--text-dim);
-  border-radius: 2px;
 }
 
-/* Domain Coverage */
 .domain-overview {
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  overflow: hidden;
+  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+  gap: 18px;
 }
 
 .domain-tile {
   background: var(--surface);
+  border: 1px solid var(--border);
   padding: 20px;
 }
 
 .domain-tile:hover {
-  background: var(--surface2);
+  border-color: var(--accent);
 }
 
 .domain-tile-name {
   font-family: var(--sans);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--text-head);
+  margin-bottom: 8px;
 }
 
 .domain-tile-count {
-  font-family: var(--mono);
-  font-size: 11px;
   color: var(--accent);
-  margin: 8px 0;
+  font-size: 11px;
+  margin-bottom: 10px;
+  font-family: var(--mono);
 }
 
 .domain-tile-desc {
-  font-size: 12px;
   color: var(--text-dim);
-  line-height: 1.7;
+  line-height: 1.8;
 }
 
-/* Design Process */
 .process-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  overflow: hidden;
+  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+  gap: 18px;
 }
 
 .process-item {
   background: var(--surface);
+  border: 1px solid var(--border);
   padding: 20px;
-  display: flex;
-  gap: 14px;
+}
+
+.process-item:hover {
+  border-color: var(--accent);
 }
 
 .process-num {
   color: var(--accent);
   font-family: var(--mono);
-  flex-shrink: 0;
+  margin-bottom: 10px;
+  display: block;
 }
 
 .process-title {
   color: var(--text-head);
-  font-size: 13px;
   font-weight: 600;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
 }
 
 .process-desc {
   color: var(--text-dim);
-  font-size: 12px;
-  line-height: 1.7;
+  line-height: 1.8;
 }
 
-@media (max-width:600px) {
+@media (max-width:768px) {
 
-  .nav-toggle {
-    display: flex;
-  }
-
-  .nav-links {
-    display: none;
-    position: absolute;
-    top: 52px;
-    left: 0;
-    right: 0;
-    background: rgba(13,15,14,.98);
-    border-bottom: 1px solid var(--border);
+  .chall-header {
     flex-direction: column;
-    padding: 16px 24px;
-    gap: 4px;
   }
 
-  .nav-links.open {
-    display: flex;
+  .domain-overview,
+  .process-list {
+    grid-template-columns: 1fr;
   }
 
-  .nav-links li {
-    list-style: none;
-  }
-
-  .nav-links a {
-    display: block;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border);
-  }
 }
